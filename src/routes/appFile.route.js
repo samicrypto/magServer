@@ -24,20 +24,20 @@ router
         .put(appFileController.editAppFileDetails)
 
 // router
-//     .route('/tutorialFiles')
-//         .get(TFileController.paginateTutorialFiles)
+//     .route('/appFileId')
+//         .get(appFileController.paginateAppFiles)
 
 // router
-//     .route('/details/:tfid')
-//         .get(TFileController.getTutorialFileDetails)
+//     .route('/details/:appFileId')
+//         .get(appFileController.getAppFileDetails)
         
 // router
-//     .route('/edit/:tfid')
-//         .put(TFileController.editTutorialFile)
+//     .route('/edit/:appFileId')
+//         .put(appFileController.editAppFile)
 
 // router
 //     .route('/delete')
-//         .delete(TFileController.deleteTutorialFiles)
+//         .delete(appFileController.deleteAppFiles)
 
 
 module.exports = router;
