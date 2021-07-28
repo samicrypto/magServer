@@ -1,6 +1,8 @@
 const httpStatus = require('http-status');
 const { Hardware } = require('../models');
 const ApiError = require('../utils/ApiError');
+const { slsp } = require('../utils/ArrayRes');
+
 
 
 
@@ -20,14 +22,23 @@ const getHardware = async(tpid) => {
     return hardware;
 };
 
-const paginateHardware = async() => {
-    const hardwares = await Hardware.find();
+const paginateHardware = async(options) => {
+    const {sort, limit, skip, page} = slsp(options);
+
+    const hardwares = await Hardware.find()
+    .sort(sort).skip(skip).limit(limit).exec()
+
+
     return hardwares;
 };
 
 const deleteHardware = async(tpid) => {
     await Hardware.deleteOne({ _id: tpid }, function(err) {});
 };
+
+// const checkHardwareCapacity = async(serialNumber) => {
+//     const hardware = await Hardware.findOne({ serialNumber: serialNumber });
+// };
 
 module.exports = {
     createHardware,

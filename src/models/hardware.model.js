@@ -15,6 +15,11 @@ const hardwareSchema = mongoose.Schema(
       type: Number,
       required: true
     },
+    deviceList: [{
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: 'Device',
+      required: true,
+    }]
   },
   {
     timestamps: true,

@@ -4,6 +4,8 @@ const ApiError = require('../utils/ApiError');
 const ApiSuccess = require('../utils/ApiSuccess');
 const catchAsync = require('../utils/catchAsync');
 const { hardwareService } = require('../services');
+const { arrayRes } = require('../utils/ArrayRes');
+
 
 
 const createHardware = catchAsync(async(req, res) => {
@@ -29,10 +31,10 @@ const getHardware = catchAsync(async(req, res) => {
 });
 
 const paginateHardware = catchAsync(async(req, res) => {
-    const pages = await hardwareService.paginateHardware();
-    console.log('hardwares: ', pages);
-    // const result = await ApiSuccess(paginate, 'HardwarePaginated', httpStatus.OK);
-    res.send(pages)
+    const options = pick(req.query, ['sortBy', 'limit', 'page']);
+    const hardwares = await hardwareService.paginateHardware(options);
+    const result = arrayRes(hardwares, options.limit, options.page, 'DevicePaginated', httpStatus.OK); 
+    res.status(httpStatus.OK).send(result);
 });
 
 const deleteHardware = catchAsync(async(req, res) => {
