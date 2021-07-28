@@ -10,7 +10,7 @@ const router = express.Router();
 router
   .route('/')
   .post(validate(hardwareValidation.createHardware), hardwareController.createHardware)
-  // .get(validate(hardwareValidation.paginateHardware), hardwareController.paginateHardware);
+  .get(validate(hardwareValidation.paginateHardware), hardwareController.paginateHardware);
 
 
 router

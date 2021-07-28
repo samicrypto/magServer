@@ -29,10 +29,10 @@ const getHardware = catchAsync(async(req, res) => {
 });
 
 const paginateHardware = catchAsync(async(req, res) => {
-    const paginate = await hardwareService.paginateHardware();
-    console.log('hardwares: ', paginate);
+    const pages = await hardwareService.paginateHardware();
+    console.log('hardwares: ', pages);
     // const result = await ApiSuccess(paginate, 'HardwarePaginated', httpStatus.OK);
-    res.send(paginate)
+    res.send(pages)
 });
 
 const deleteHardware = catchAsync(async(req, res) => {
