@@ -1,0 +1,1 @@
+module.exports.TPkgController = require('./tutorialpkg.controller');
