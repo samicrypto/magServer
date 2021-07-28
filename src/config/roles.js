@@ -25,7 +25,7 @@ const scope = {
 };
 
 const admin = [ scope.CU, scope.SU ];
-const user  = [ scope.SUBI, scope.CAF, scope.EAF, scope.UA ];
+const user  = [ scope.SUBI, scope.CAF, scope.EAF, scope.UA, scope.CTF ];
 
 roleRights = (role) => {
   switch(role) {

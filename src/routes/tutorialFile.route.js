@@ -9,7 +9,7 @@ const router = express.Router();
 
 router
     .route('/create')
-        .post(TFileController.createTutorialFile);
+        .post(auth(scope.CTF), TFileController.createTutorialFile);
 
 router
     .route('/upload/images/:tutorialFileId')
