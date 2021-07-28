@@ -17,28 +17,28 @@ const editTPkg = catchAsync(async(req, res) => {
     const tpid = req.params.tpid;
     const editBody = req.body;
     const newtpkg = await tutorialpkgService.editTPkg(tpid, editBody);
-    const result = await ApiSuccess(newtpkg, 'TutorialPkgIsEdit', httpStatus.CREATED);
-    res.status(httpStatus.CREATED).send(result);
+    const result = await ApiSuccess(newtpkg, 'TutorialPkgIsEdit', httpStatus.OK);
+    res.status(httpStatus.OK).send(result);
 });
 
 const getTpkg = catchAsync(async(req, res) => {
     const tpid = req.params.tpid;
     const newtpkg = await tutorialpkgService.getTpkg(tpid);
-    const result = await ApiSuccess(newtpkg, 'getTutorialPkg', httpStatus.CREATED);
-    res.status(httpStatus.CREATED).send(result);
+    const result = await ApiSuccess(newtpkg, 'getTutorialPkg', httpStatus.OK);
+    res.status(httpStatus.OK).send(result);
 });
 
 const paginateTpkg = catchAsync(async(req, res) => {
     const paginate = await tutorialpkgService.paginateTpkg();
-    const result = await ApiSuccess(paginate, 'TutorialPkgPaginated', httpStatus.CREATED);
-    res.status(httpStatus.CREATED).send(result);
+    const result = await ApiSuccess(paginate, 'TutorialPkgPaginated', httpStatus.OK);
+    res.status(httpStatus.OK).send(result);
 });
 
 const deleteTpkg = catchAsync(async(req, res) => {
     const tpid = req.params.tpid;
     await tutorialpkgService.deleteTpkg(tpid);
-    const result = await ApiSuccess('TutorialPkgIsDelete', httpStatus.CREATED);
-    res.status(httpStatus.CREATED).send(result);
+    const result = await ApiSuccess('TutorialPkgIsDelete', httpStatus.OK);
+    res.status(httpStatus.OK).send(result);
 });
 
 module.exports = { 
