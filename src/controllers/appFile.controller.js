@@ -20,7 +20,7 @@ const createAppFile = catchAsync(async(req, res) => {
 
 
 const uploadAppFile = catchAsync(async(req, res) => {
-    const appFileId = req.params.appFileId;
+    const appFileId = req.params.apfid;
     await appFileService.getAppFileById(appFileId);
   
     await upload.uploadApk(req, res); //uploadApkFile
@@ -34,7 +34,7 @@ const uploadAppFile = catchAsync(async(req, res) => {
   
 
 const chechAppVersion = catchAsync(async(req, res) => {
-    const appFileId = req.params.appFileId;
+    const appFileId = req.params.apfid;
     const version = req.params.version;
     const report = await appFileService.chechAppVersion(appFileId, version);
     if(report) {
@@ -48,10 +48,35 @@ const chechAppVersion = catchAsync(async(req, res) => {
 });
 
 const editAppFileDetails = catchAsync(async(req, res) => {
-    const appFileId = req.params.appFileId;
+    const appFileId = req.params.apfid;
     const newBody = req.body;
     const editFile = await appFileService.editAppFileDetails(appFileId, newBody);
     const result = await ApiSuccess(editFile, 'fileUpdate', httpStatus.OK);
+    res.status(httpStatus.OK).send(result);
+});
+
+
+const paginateAppFiles = catchAsync(async(req, res) => {
+    const options = pick(req.query, ['sortBy', 'limit', 'page']);
+    const appFiles = await appFileService.paginateAppFiles(options);
+    const result = arrayRes(appFiles, options.limit, options.page, 'AppFilePaginated', httpStatus.OK); 
+    res.status(httpStatus.OK).send(result);
+});
+
+
+const getAppFileById = catchAsync(async(req, res) => {
+    const appFileId = req.params.apfid;
+    const appFile = await appFileService.getAppFileById(appFileId);
+    const result = await ApiSuccess(appFile, 'fileUpdate', httpStatus.OK);
+    res.status(httpStatus.OK).send(result);
+});
+
+
+const deleteAppFileById = catchAsync(async(req, res) => {
+    const appFileId = req.params.apfid;
+    console.log(appFileId);
+    await appFileService.deleteAppFileById(appFileId);
+    const result = await ApiSuccess('fileDeleteSuccessfuly', httpStatus.OK);
     res.status(httpStatus.OK).send(result);
 });
 
@@ -59,5 +84,8 @@ module.exports = {
     createAppFile,
     uploadAppFile,
     chechAppVersion,
-    editAppFileDetails
+    editAppFileDetails,
+    paginateAppFiles,
+    getAppFileById,
+    deleteAppFileById
 };

@@ -12,32 +12,32 @@ router
         .post(appFileController.createAppFile);
 
 router
-    .route('/upload/apk/:appFileId')
+    .route('/upload/apk/:apfid')
         .post(appFileController.uploadAppFile)
 
 router
-    .route('/cnv/appFileId/:appFileId/version/:version') // cnv check new version
+    .route('/cnv/appFileId/:apfid/version/:version') // cnv check new version
         .post(appFileController.chechAppVersion)
 
 router
-    .route('/edit/:appFileId')
+    .route('/edit/:apfid')
         .put(appFileController.editAppFileDetails)
 
-// router
-//     .route('/appFileId')
-//         .get(appFileController.paginateAppFiles)
+router
+    .route('/')
+        .get(appFileController.paginateAppFiles)
 
-// router
-//     .route('/details/:appFileId')
-//         .get(appFileController.getAppFileDetails)
+router
+    .route('/:apfid')
+        .get(appFileController.getAppFileById)
         
-// router
-//     .route('/edit/:appFileId')
-//         .put(appFileController.editAppFile)
+router
+    .route('/edit/:apfid')
+        .put(appFileController.editAppFileDetails)
 
-// router
-//     .route('/delete')
-//         .delete(appFileController.deleteAppFiles)
+router
+    .route('/delete/:apfid')
+        .delete(appFileController.deleteAppFileById)
 
 
 module.exports = router;

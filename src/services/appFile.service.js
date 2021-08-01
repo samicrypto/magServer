@@ -43,10 +43,26 @@ const editAppFileDetails = async(appFileId, newBody) => {
     return newAppFile;
 };
 
+
+const paginateAppFiles = async(options) => {
+    const {sort, limit, skip, page} = slsp(options);
+
+    const appFiles = await AppFile.find()
+    .sort(sort).skip(skip).limit(limit).exec()
+
+    return appFiles;
+};
+
+const deleteAppFileById = async(appFileId) => {
+    await AppFile.deleteOne({ _id: appFileId });
+};
+
 module.exports = {
     createAppFile,
     getAppFileById,
     addUploadFileDetailsToAppFile,
     chechAppVersion,
-    editAppFileDetails
+    editAppFileDetails,
+    paginateAppFiles,
+    deleteAppFileById
 };
