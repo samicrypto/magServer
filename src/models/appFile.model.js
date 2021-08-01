@@ -17,6 +17,7 @@ const appFileSchema = mongoose.Schema({
       },
       version: Number,
       source: String,
+      forceUpdate: Boolean
 },
 {
   timestamps: true,
