@@ -1,0 +1,1 @@
+module.exports.scanFileController = require('./scanfile.controller');
