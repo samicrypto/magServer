@@ -7,6 +7,10 @@ const deviceSchema = mongoose.Schema(
       type: String,
       required: true
     },
+    imei: {
+      type: String,
+      required: true
+    },
     androidVersion: {
       type: String,
       required: true
@@ -19,9 +23,8 @@ const deviceSchema = mongoose.Schema(
       type: String,
     },
     hardwareSerialNamber: {
-        type: mongoose.SchemaTypes.ObjectId,
-        ref: 'Hardware',
-        required: true,
+        type: String,
+        // required: true,
     },
   },
   {

@@ -25,4 +25,8 @@ router
   .route('/delete/:did')
     .delete(validate(deviceValidation.deleteDevice), deviceController.deleteDevice)
 
+router
+  .route('/setDevice/:did')
+    .put(deviceController.setDeviceOnHardware)
+
 module.exports = router;

@@ -36,6 +36,12 @@ const deleteHardware = async(tpid) => {
     await Hardware.deleteOne({ _id: tpid }, function(err) {});
 };
 
+const getHardwareBySerialNumber = async(serialNumber) => {
+    const hardware = await Hardware.findOne({ serialNumber: serialNumber});
+    if(!hardware) { throw new ApiError('Hardware with this SerialNumer is NotFounded', httpStatus.NOT_FOUND) };
+    return hardware;
+};
+
 // const checkHardwareCapacity = async(serialNumber) => {
 //     const hardware = await Hardware.findOne({ serialNumber: serialNumber });
 // };
@@ -45,5 +51,6 @@ module.exports = {
     editHardware,
     getHardware,
     paginateHardware,
-    deleteHardware
+    deleteHardware,
+    getHardwareBySerialNumber
 };
