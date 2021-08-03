@@ -1,0 +1,1 @@
+module.exports.firebaseController = require('./firebase.controller');
