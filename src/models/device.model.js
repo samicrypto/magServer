@@ -18,14 +18,7 @@ const deviceSchema = mongoose.Schema(
     regDate: {
       type: Date,
       required: true
-    },
-    androidVersion: {
-      type: String,
-    },
-    hardwareSerialNamber: {
-        type: String,
-        // required: true,
-    },
+    }
   },
   {
     timestamps: true,

@@ -1,5 +1,5 @@
 const httpStatus = require('http-status');
-const { Device, hardware } = require('../models');
+const { Device, Hardware, HardwareDevice } = require('../models');
 const ApiError = require('../utils/ApiError');
 const { slsp } = require('../utils/ArrayRes');
 const { hardwareService } = require('./index');
@@ -37,7 +37,8 @@ const deleteDevice = async(did) => {
 };
 
 
-const setDeviceOnHardware = async(deviceId, hardwareSerialNumber) => {
+const setDeviceOnHardware = async(imei, serialNumber) => {
+    const hardwareDevice = await HardwareDevice.findOne({ deviceImei: imei, hardwareSerialNamber: serialNumber });
     const hardware = await hardwareService.getHardwareBySerialNumber(hardwareSerialNumber);
     if(hardware.capacity <= hardware.conectedDevice) {
         throw new ApiError("HardwareCapacityIsCompelt", httpStatus.LOCKED);

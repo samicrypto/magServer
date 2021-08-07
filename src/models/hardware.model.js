@@ -14,9 +14,6 @@ const hardwareSchema = mongoose.Schema(
     capacity: {
       type: Number,
       required: true
-    },
-    conectedDevice: {
-      type: Number
     }
   },
   {
