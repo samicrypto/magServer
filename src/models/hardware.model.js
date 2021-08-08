@@ -9,6 +9,7 @@ const hardwareSchema = mongoose.Schema(
     },
     serialNumber: {
       type: String,
+      unique: true,
       required: true
     },
     capacity: {

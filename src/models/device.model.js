@@ -9,6 +9,7 @@ const deviceSchema = mongoose.Schema(
     },
     imei: {
       type: String,
+      unique: true,
       required: true
     },
     androidVersion: {

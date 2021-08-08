@@ -1,8 +1,8 @@
 const express = require('express');
 const auth = require('../middlewares/auth');
 const validate = require('../middlewares/validate');
-const deviceValidation = require('../validations/device.validation');
-const deviceController = require('../controllers/device.controller');
+const HDValidation = require('../validations/hardwareDevice.validation');
+const HDController = require('../controllers/hardwareDevice.controller');
 const { scope } = require('../config/roles');
 
 const router = express.Router();
@@ -11,101 +11,91 @@ const router = express.Router();
  * @swagger
  * components:
  *   schemas:
- *     Device:
+ *     HardwareDevice:
  *       type: object
  *       required:
- *         - name
- *         - imei
- *         - androidVersion
- *         - regDate
+ *         - deviceImei
+ *         - hardwareSerialNumber
  *       properties:
  *         id:
  *           type: string
  *           description: The auto-generated id of the book
- *         name:
+ *         deviceImei:
  *           type: string
  *           description: The book title
- *         imei:
+ *         hardwareSerialNumber:
  *           type: string
  *           description: The device imei
- *         androidVersion:
- *            type: string
- *            description: The device android version
- *         regDate:
- *            type: string
- *            description: The device register date
  *       example:
  *         id: d5fE_asz
- *         name: Xiaomi
- *         imei: "45641564864654654"
- *         androidVersion: "10"
- *         regDate: 562136543
+ *         deviceImei: "54561354687541564"
+ *         hardwareSerialNumber: "4564dasd64asd8646asd54654"
  */
 
  /**
   * @swagger
   * tags:
-  *   name: Device
-  *   description: The device managing API
+  *   name: HardwareDevice
+  *   description: The HardwareDevice managing API
   */
 
  /**
  * @swagger
- * /api/device:
+ * /api/hd:
  *   get:
- *     summary: Returns the list of all the books
- *     tags: [Devices]
+ *     summary: Returns the list of all the Hardware Devices
+ *     tags: [HardwareDevices]
  *     responses:
  *       200:
- *         description: The list of the devices
+ *         description: The list of the hardware devices
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/Device'
+ *                 $ref: '#/components/schemas/HardwareDevice'
  */
 
 
 /**
  * @swagger
- * /api/device:
+ * /api/hd:
  *   post:
- *     summary: Create a new device
- *     tags: [Device]
+ *     summary: Create a new hardware device
+ *     tags: [HardwareDevice]
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Device'
+ *             $ref: '#/components/schemas/HardwareDevice'
  *     responses:
  *       200:
- *         description: The device was successfully created
+ *         description: The hardware device was successfully created
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Device'
+ *               $ref: '#/components/schemas/HardwareDevice'
  *       500:
  *         description: Some server error
  */
 
 router
   .route('/')
-    .post(validate(deviceValidation.createDevice), deviceController.createDevice)
-    .get(validate(deviceValidation.paginateDevice), deviceController.paginateDevice);
+    .post(HDController.createHardwareDevice)
+    .get(validate(HDValidation.paginateHardwareDevice), HDController.paginateHardwareDevice);
 
 
 
 /**
  * @swagger
- * /api/device/{did}:
+ * /api/device/{hdid}:
  *   get:
  *     summary: Get the device by id
  *     tags: [devices]
  *     parameters:
  *       - in: path
- *         name: did
+ *         name: hdid
  *         schema:
  *           type: string
  *         required: true
@@ -116,26 +106,26 @@ router
  *         contens:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Book'
+ *               $ref: '#/components/schemas/HardwareDevice'
  *       404:
  *         description: The device was not found
  */
 
 router
-  .route('/:did')
-    .get(deviceController.getDevice);
+  .route('/:hdid')
+    .get(HDController.getHardwareDevice);
 
 
 
 /**
  * @swagger
- * /pi/device/{did}:
+ * /pi/device/{hdid}:
  *  put:
- *    summary: Update the device by the id
+ *    summary: Update the hardware device by the id
  *    tags: [Devices]
  *    parameters:
  *      - in: path
- *        name: did
+ *        name: hdid
  *        schema:
  *          type: string
  *        required: true
@@ -145,14 +135,14 @@ router
  *      content:
  *        application/json:
  *          schema:
- *            $ref: '#/components/schemas/Book'
+ *            $ref: '#/components/schemas/HardwareDevice'
  *    responses:
  *      200:
  *        description: The book was updated
  *        content:
  *          application/json:
  *            schema:
- *              $ref: '#/components/schemas/Book'
+ *              $ref: '#/components/schemas/HardwareDevice'
  *      404:
  *        description: The book was not found
  *      500:
@@ -160,15 +150,15 @@ router
  */
 
 router
-  .route('/edit/:did')
-      .put(validate(deviceValidation.editDevice), deviceController.editDevice);
+  .route('/edit/:hdid')
+      .put(validate(HDValidation.editHardwareDevice), HDController.editHardwareDevice);
 
 router
-  .route('/delete/:did')
-    .delete(validate(deviceValidation.deleteDevice), deviceController.deleteDevice)
+  .route('/delete/:hdid')
+    .delete(validate(HDValidation.deleteHardwareDevice), HDController.deleteHardwareDevice)
 
 router
-  .route('/connectDevice/:did')
-    .put(deviceController.setDeviceOnHardware)
+  .route('/sdoh') // set device on hardware
+    .put(HDController.setDeviceOnHardware)
 
 module.exports = router;

@@ -1,5 +1,5 @@
 const httpStatus = require('http-status');
-const { Device, Hardware, HardwareDevice } = require('../models');
+const { Device } = require('../models');
 const ApiError = require('../utils/ApiError');
 const { slsp } = require('../utils/ArrayRes');
 const { hardwareService } = require('./index');
@@ -18,6 +18,7 @@ const editDevice = async(did, editBody) => {
 
 const getDevice = async(did) => {
     const device = await Device.findOne({ _id: did });
+    if(!device) { throw new ApiError( httpStatus.NOT_FOUND, 'DeviceNotFounded') };
     return device;
 };
 
@@ -37,27 +38,10 @@ const deleteDevice = async(did) => {
 };
 
 
-const setDeviceOnHardware = async(imei, serialNumber) => {
-    const hardwareDevice = await HardwareDevice.findOne({ deviceImei: imei, hardwareSerialNamber: serialNumber });
-    const hardware = await hardwareService.getHardwareBySerialNumber(hardwareSerialNumber);
-    if(hardware.capacity <= hardware.conectedDevice) {
-        throw new ApiError("HardwareCapacityIsCompelt", httpStatus.LOCKED);
-    };
-
-    await Device.updateOne({ _id: deviceId }, { '$set': {
-        "hardwareSerialNamber": hardwareSerialNumber
-    } 
-  }, { "new": true, "upsert": true });
-
-  const device = await getDevice(deviceId);
-  return device;
-};
-
 module.exports = {
     createDevice,
     editDevice,
     getDevice,
     paginateDevice,
     deleteDevice,
-    setDeviceOnHardware
 };

@@ -4,9 +4,9 @@ const { password, objectId } = require('./custom.validation');
 const createDevice = {
   body: Joi.object().keys({
     name: Joi.string().required(),
+    imei: Joi.string().required(),
     androidVersion: Joi.string().required(),
     regDate: Joi.date().required(),
-    hardwareSerialNamber: Joi.string()
   }),
 };
 
@@ -29,6 +29,7 @@ const editDevice = {
     }),
     body: Joi.object().keys({
       name: Joi.string(),
+      imei: Joi.string().required(),
       androidVersion: Joi.string(),
       regDate: Joi.date(),
       hardwareSerialNamber: Joi.string()
