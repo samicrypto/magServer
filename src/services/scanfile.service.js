@@ -24,9 +24,7 @@ const editScanFileDetails = async(scanFileId, newBody) => {
 
 
 const paginateScanFiles = async(options) => {
-
     const scanFiles = await ScanFile.find()
-
     return scanFiles;
 };
 
