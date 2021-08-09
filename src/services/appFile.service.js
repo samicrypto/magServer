@@ -45,10 +45,8 @@ const editAppFileDetails = async(appFileId, newBody) => {
 
 
 const paginateAppFiles = async(options) => {
-    const {sort, limit, skip, page} = slsp(options);
 
     const appFiles = await AppFile.find()
-    .sort(sort).skip(skip).limit(limit).exec()
 
     return appFiles;
 };

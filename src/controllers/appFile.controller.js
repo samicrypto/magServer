@@ -8,6 +8,7 @@ const upload = require('../middlewares/uploadFile');
 const { appFileService } = require('../services');
 const fs = require('fs');
 const { format } = require('prettier');
+const { slsp } = require('../utils/ArrayRes');
 const { arrayRes } = require('../utils/ArrayRes');
 
 
@@ -58,8 +59,9 @@ const editAppFileDetails = catchAsync(async(req, res) => {
 
 const paginateAppFiles = catchAsync(async(req, res) => {
     const options = pick(req.query, ['sortBy', 'limit', 'page']);
+    const {sort, limit, skip, page} = slsp(options);
     const appFiles = await appFileService.paginateAppFiles(options);
-    const result = arrayRes(appFiles, options.limit, options.page, 'AppFilePaginated', httpStatus.OK); 
+    const result = arrayRes(appFiles, limit, page, 'AppFilePaginated', httpStatus.OK); 
     res.status(httpStatus.OK).send(result);
 });
 
