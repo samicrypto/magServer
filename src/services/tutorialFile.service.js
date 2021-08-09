@@ -1,7 +1,6 @@
 const httpStatus = require('http-status');
 const { TutorialFile } = require('../models');
 const ApiError = require('../utils/ApiError');
-const { slsp } = require('../utils/ArrayRes');
 const deleteFile = require('../utils/deleteFile');
 
 
@@ -42,10 +41,7 @@ const addUploadFileDetailsToTutorialFile = async(tutorialFileId, fileType, fileD
 
 const paginateTutorialFiles = async(options) => {
 
-    const {sort, limit, skip, page} = slsp(options);
-
     const tutorialFiles = await TutorialFile.find()
-    .sort(sort).skip(skip).limit(limit).exec()
     
     return tutorialFiles;
 

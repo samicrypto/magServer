@@ -8,6 +8,7 @@ const upload = require('../middlewares/uploadFile');
 const { tutorialFileService, aparatService } = require('../services');
 const fs = require('fs');
 const { format } = require('prettier');
+const { slsp } = require('../utils/ArrayRes');
 const { arrayRes } = require('../utils/ArrayRes');
 
 
@@ -96,8 +97,9 @@ const uploadVideoToAparat = catchAsync(async(req, res) => {
 
 const paginateTutorialFiles = catchAsync(async(req, res) => {
     const options = pick(req.query, ['sortBy', 'limit', 'page']);
+    const {sort, limit, skip, page} = slsp(options);
     const tfs = await tutorialFileService.paginateTutorialFiles(options);
-    const result = arrayRes(tfs, options.limit, options.page);
+    const result = arrayRes(tfs, limit, page);
     res.status(httpStatus.OK).send(result);
 });
 
