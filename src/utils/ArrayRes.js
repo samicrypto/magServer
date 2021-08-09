@@ -12,10 +12,10 @@ function slsp(options) {
     return { sort, limit, skip, page }
 };
 
-function arrayRes(body, limit, page, message, statusCode) {
-  const totalResults = body.length;
+function arrayRes(array, limit, page, message, statusCode) {
+  const totalResults = array.length;
+  const body = array.slice((page - 1) * limit, page * limit);
   let totalPages = Math.ceil(totalResults / limit);
-  if(!limit) { totalPages = Math.ceil(totalResults / 10); }
   const result = {
     body,
     page,

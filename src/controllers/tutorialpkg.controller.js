@@ -4,6 +4,8 @@ const ApiError = require('../utils/ApiError');
 const ApiSuccess = require('../utils/ApiSuccess');
 const catchAsync = require('../utils/catchAsync');
 const { tutorialpkgService } = require('../services');
+const { slsp } = require('../utils/ArrayRes');
+const { arrayRes } = require('../utils/ArrayRes');
 
 
 const createTPkg = catchAsync(async(req, res) => {
@@ -29,8 +31,10 @@ const getTpkg = catchAsync(async(req, res) => {
 });
 
 const paginateTpkg = catchAsync(async(req, res) => {
+    const options = pick(req.query, ['sortBy', 'limit', 'page']);
+    const {sort, limit, skip, page} = slsp(options);
     const paginate = await tutorialpkgService.paginateTpkg();
-    const result = await ApiSuccess(paginate, 'TutorialPkgPaginated', httpStatus.OK);
+    const result = await arrayRes(paginate, limit, page, 'TutorialPkgPaginated', httpStatus.OK);
     res.status(httpStatus.OK).send(result);
 });
 
