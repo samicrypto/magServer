@@ -4,6 +4,7 @@ const ApiError = require('../utils/ApiError');
 const ApiSuccess = require('../utils/ApiSuccess');
 const catchAsync = require('../utils/catchAsync');
 const { deviceService } = require('../services');
+const { slsp } = require('../utils/ArrayRes');
 const { arrayRes } = require('../utils/ArrayRes');
 
 
@@ -30,9 +31,11 @@ const getDevice = catchAsync(async(req, res) => {
 });
 
 const paginateDevice = catchAsync(async(req, res) => {
+    const filter = pick(req.query, ['name', 'regDate']);
     const options = pick(req.query, ['sortBy', 'limit', 'page']);
+    const {sort, limit, skip, page} = slsp(options);
     const devices = await deviceService.paginateDevice(options);
-    const result = arrayRes(devices, options.limit, options.page, 'DevicePaginated', httpStatus.OK); 
+    const result = arrayRes(devices, limit, page, 'DevicePaginated', httpStatus.OK); 
     res.status(httpStatus.OK).send(result)
 });
 
@@ -43,19 +46,11 @@ const deleteDevice = catchAsync(async(req, res) => {
     res.status(httpStatus.OK).send(result);
 });
 
-const setDeviceOnHardware = catchAsync(async(req, res) => {
-    const deviceId = req.params.did;
-    const hardwareSerialNumber = req.body.hardwareSerialNumber;
-    const device = await deviceService.setDeviceOnHardware(deviceId, hardwareSerialNumber);
-    const result = await ApiSuccess(device, 'DeviceIsSetOnHardware', httpStatus.OK);
-    res.status(httpStatus.OK).send(result);
-});
 
 module.exports = { 
     createDevice,
     editDevice,
     getDevice,
     paginateDevice,
-    deleteDevice,
-    setDeviceOnHardware
+    deleteDevice
 };

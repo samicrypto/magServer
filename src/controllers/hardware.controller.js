@@ -4,6 +4,7 @@ const ApiError = require('../utils/ApiError');
 const ApiSuccess = require('../utils/ApiSuccess');
 const catchAsync = require('../utils/catchAsync');
 const { hardwareService } = require('../services');
+const { slsp } = require('../utils/ArrayRes');
 const { arrayRes } = require('../utils/ArrayRes');
 
 
@@ -32,8 +33,9 @@ const getHardware = catchAsync(async(req, res) => {
 
 const paginateHardware = catchAsync(async(req, res) => {
     const options = pick(req.query, ['sortBy', 'limit', 'page']);
+    const {sort, limit, skip, page} = slsp(options);
     const hardwares = await hardwareService.paginateHardware(options);
-    const result = arrayRes(hardwares, options.limit, options.page, 'DevicePaginated', httpStatus.OK); 
+    const result = arrayRes(hardwares, limit, page, 'DevicePaginated', httpStatus.OK); 
     res.status(httpStatus.OK).send(result);
 });
 

@@ -11,7 +11,7 @@ const router = express.Router();
  * @swagger
  * components:
  *   schemas:
- *     Device:
+ *     Devices:
  *       type: object
  *       required:
  *         - name
@@ -21,10 +21,10 @@ const router = express.Router();
  *       properties:
  *         id:
  *           type: string
- *           description: The auto-generated id of the book
+ *           description: The auto-generated id of the device
  *         name:
  *           type: string
- *           description: The book title
+ *           description: The Device title
  *         imei:
  *           type: string
  *           description: The device imei
@@ -45,15 +45,15 @@ const router = express.Router();
  /**
   * @swagger
   * tags:
-  *   name: Device
-  *   description: The device managing API
+  *   name: Devices
+  *   description: The Device managing API
   */
 
  /**
  * @swagger
  * /api/device:
  *   get:
- *     summary: Returns the list of all the books
+ *     summary: Returns the list of all the devices
  *     tags: [Devices]
  *     responses:
  *       200:
@@ -72,7 +72,7 @@ const router = express.Router();
  * /api/device:
  *   post:
  *     summary: Create a new device
- *     tags: [Device]
+ *     tags: [Devices]
  *     requestBody:
  *       required: true
  *       content:
@@ -102,7 +102,7 @@ router
  * /api/device/{did}:
  *   get:
  *     summary: Get the device by id
- *     tags: [devices]
+ *     tags: [Devices]
  *     parameters:
  *       - in: path
  *         name: did
@@ -116,7 +116,7 @@ router
  *         contens:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Book'
+ *               $ref: '#/components/schemas/Device'
  *       404:
  *         description: The device was not found
  */
@@ -129,7 +129,7 @@ router
 
 /**
  * @swagger
- * /pi/device/{did}:
+ * /api/device/edit/{did}:
  *  put:
  *    summary: Update the device by the id
  *    tags: [Devices]
@@ -145,16 +145,16 @@ router
  *      content:
  *        application/json:
  *          schema:
- *            $ref: '#/components/schemas/Book'
+ *            $ref: '#/components/schemas/Device'
  *    responses:
  *      200:
- *        description: The book was updated
+ *        description: The Device was updated
  *        content:
  *          application/json:
  *            schema:
- *              $ref: '#/components/schemas/Book'
+ *              $ref: '#/components/schemas/Device'
  *      404:
- *        description: The book was not found
+ *        description: The Device was not found
  *      500:
  *        description: Some error happened
  */
@@ -163,12 +163,30 @@ router
   .route('/edit/:did')
       .put(validate(deviceValidation.editDevice), deviceController.editDevice);
 
+/**
+ * @swagger
+ * /api/device/delete/{did}:
+ *   delete:
+ *     summary: Remove the device by id
+ *     tags: [Devices]
+ *     parameters:
+ *       - in: path
+ *         name: did
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The device id
+ * 
+ *     responses:
+ *       200:
+ *         description: The device was deleted
+ *       404:
+ *         description: The device was not found
+ */
+
 router
   .route('/delete/:did')
     .delete(validate(deviceValidation.deleteDevice), deviceController.deleteDevice)
 
-router
-  .route('/connectDevice/:did')
-    .put(deviceController.setDeviceOnHardware)
-
+    
 module.exports = router;

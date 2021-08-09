@@ -1,7 +1,6 @@
 const httpStatus = require('http-status');
 const { Hardware } = require('../models');
 const ApiError = require('../utils/ApiError');
-const { slsp } = require('../utils/ArrayRes');
 
 
 
@@ -23,11 +22,8 @@ const getHardware = async(tpid) => {
 };
 
 const paginateHardware = async(options) => {
-    const {sort, limit, skip, page} = slsp(options);
 
     const hardwares = await Hardware.find()
-    .sort(sort).skip(skip).limit(limit).exec()
-
 
     return hardwares;
 };

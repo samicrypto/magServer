@@ -44,7 +44,7 @@ const router = express.Router();
  * /api/hd:
  *   get:
  *     summary: Returns the list of all the Hardware Devices
- *     tags: [HardwareDevices]
+ *     tags: [HardwareDevice]
  *     responses:
  *       200:
  *         description: The list of the hardware devices
@@ -92,7 +92,7 @@ router
  * /api/device/{hdid}:
  *   get:
  *     summary: Get the device by id
- *     tags: [devices]
+ *     tags: [HardwareDevice]
  *     parameters:
  *       - in: path
  *         name: hdid
@@ -122,7 +122,7 @@ router
  * /pi/device/{hdid}:
  *  put:
  *    summary: Update the hardware device by the id
- *    tags: [Devices]
+ *    tags: [HardwareDevice]
  *    parameters:
  *      - in: path
  *        name: hdid

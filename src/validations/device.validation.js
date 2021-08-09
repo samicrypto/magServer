@@ -29,7 +29,7 @@ const editDevice = {
     }),
     body: Joi.object().keys({
       name: Joi.string(),
-      imei: Joi.string().required(),
+      imei: Joi.string(),
       androidVersion: Joi.string(),
       regDate: Joi.date(),
       hardwareSerialNamber: Joi.string()

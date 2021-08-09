@@ -1,7 +1,6 @@
 const httpStatus = require('http-status');
 const { Device } = require('../models');
 const ApiError = require('../utils/ApiError');
-const { slsp } = require('../utils/ArrayRes');
 const { hardwareService } = require('./index');
 
 
@@ -22,12 +21,9 @@ const getDevice = async(did) => {
     return device;
 };
 
-const paginateDevice = async(options) => {
-
-    const {sort, limit, skip, page} = slsp(options);
+const paginateDevice = async() => {
 
     const devices = await Device.find()
-    .sort(sort).skip(skip).limit(limit).exec()
 
     return devices;
 
