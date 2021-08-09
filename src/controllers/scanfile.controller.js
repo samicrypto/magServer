@@ -8,6 +8,7 @@ const upload = require('../middlewares/uploadFile');
 const { scanFileService } = require('../services');
 const fs = require('fs');
 const { format } = require('prettier');
+const { slsp } = require('../utils/ArrayRes');
 const { arrayRes } = require('../utils/ArrayRes');
 
 
@@ -29,8 +30,9 @@ const editScanFileDetails = catchAsync(async(req, res) => {
 
 const paginateScanFiles = catchAsync(async(req, res) => {
     const options = pick(req.query, ['sortBy', 'limit', 'page']);
+    const {sort, limit, skip, page} = slsp(options);
     const scanFiles = await scanFileService.paginateScanFiles(options);
-    const result = arrayRes(scanFiles, options.limit, options.page, 'ScanFilePaginated', httpStatus.OK); 
+    const result = arrayRes(scanFiles, limit, page, 'ScanFilePaginated', httpStatus.OK); 
     res.status(httpStatus.OK).send(result);
 });
 

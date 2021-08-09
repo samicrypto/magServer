@@ -24,10 +24,8 @@ const editScanFileDetails = async(scanFileId, newBody) => {
 
 
 const paginateScanFiles = async(options) => {
-    const {sort, limit, skip, page} = slsp(options);
 
     const scanFiles = await ScanFile.find()
-    .sort(sort).skip(skip).limit(limit).exec()
 
     return scanFiles;
 };
