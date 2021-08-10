@@ -10,7 +10,7 @@ const notification_options = {
 };
 
 const firebaseNotification = catchAsync(async(req, res) => {
-    const  registrationToken = req.body.registrationToken
+    const registrationToken = req.body.registrationToken
     const message = req.body.message
     const options =  notification_options
 
