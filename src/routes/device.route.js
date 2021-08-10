@@ -78,7 +78,7 @@ const router = express.Router();
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Device'
+ *             $ref: '#/components/schemas/Devices'
  *     responses:
  *       200:
  *         description: The device was successfully created
