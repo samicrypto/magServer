@@ -18,6 +18,32 @@ components:
         email: fake@example.com
         name: fake name
         role: user
+  securitySchemes:
+    cookieAuth:         # arbitrary name for the security scheme; will be used in the "security" key later
+      type: apiKey
+      in: cookie
+      name: JSESSIONID  # cookie name
+
+/api/users/{uid}:
+  get:
+    summary: Get the user by id
+    tags: [User]
+    parameters:
+      - in: path
+        name: uid
+        schema:
+        type: string
+        required: true
+        description: The user id
+    responses:
+      200:
+        description: The user description by id
+        contens:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      404:
+        description: The user was not found
 
     Token:
       type: object
