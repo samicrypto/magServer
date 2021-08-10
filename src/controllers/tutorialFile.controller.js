@@ -22,7 +22,7 @@ const createTutorialFile = catchAsync(async(req, res) => {
 
 
 const uploadImageLocally = catchAsync(async(req, res) => {
-  const tutorialFileId = req.params.tutorialFileId;
+  const tutorialFileId = req.params.tfid;
   await tutorialFileService.getTutorialFileById(tutorialFileId);
 
   await upload.uploadImage(req, res);
@@ -36,7 +36,7 @@ const uploadImageLocally = catchAsync(async(req, res) => {
 
 
 const uploadVideoLocally = catchAsync(async(req, res) => {
-  const tutorialFileId = req.params.tutorialFileId;
+  const tutorialFileId = req.params.tfid;
   await tutorialFileService.getTutorialFileById(tutorialFileId);
 
   await upload.uploadVideo(req, res);
@@ -49,7 +49,7 @@ const uploadVideoLocally = catchAsync(async(req, res) => {
 });
 
 const uploadAudioLocally = catchAsync(async(req, res) => {
-  const tutorialFileId = req.params.tutorialFileId;
+  const tutorialFileId = req.params.tfid;
   await tutorialFileService.getTutorialFileById(tutorialFileId);
 
   await upload.uploadAudio(req, res);
@@ -65,7 +65,7 @@ const uploadAudioLocally = catchAsync(async(req, res) => {
 
 
 const uploadDocLocally = catchAsync(async(req, res) => {
-  const tutorialFileId = req.params.tutorialFileId;
+  const tutorialFileId = req.params.tfid;
   await tutorialFileService.getTutorialFileById(tutorialFileId);
 
   await upload.uploadDoc(req, res);
