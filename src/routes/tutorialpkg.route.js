@@ -25,12 +25,12 @@ const router = express.Router();
  *           type: string
  *           description: The tutorialpkg title
  *         content:
- *           type: string
+ *           type: object
  *           description: The tutorialpkg content
  *       example:
  *         id: "d5fE_asz"
  *         title: "pkg file"
- *         content: "this is content"
+ *         content: { paramt: "asd asdjhk" }
  */
 
  /**
