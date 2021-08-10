@@ -11,13 +11,13 @@ const scanFileSchema = mongoose.Schema({
       },
 
       scanDate: {
-        type: Date,
+        type: String,
         required: true,
       },
-      lat: Number,
-      lon: Number,
-      width: Number,
-      height: Number
+      lat: String,
+      lon: String,
+      width: String,
+      height: String
 
 },
 {
