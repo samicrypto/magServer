@@ -19,9 +19,9 @@ const editHardwareDevice = async(hdid, editBody) => {
     return hardwareDevice;
 };
 
-const getHardwareDevice = async(imei, serialNumber) => {
-    const hardwareDevice = await HardwareDevice.findOne({ deviceImei: imei, hardwareSerialNamber: serialNumber });
-    if(!hardwareDevice) { throw new ApiError(httpStatus.NOT_FOUND, 'ItIsNotAnyConnectionBetweenThisHardwareAndThisDevice') };
+const getHardwareDevice = async(hdid) => {
+    const hardwareDevice = await HardwareDevice.findOne({ _id: hdid });
+    if(!hardwareDevice) { throw new ApiError(httpStatus.NOT_FOUND, 'ThisHardwareDeviceIsNotFound') };
     return hardwareDevice;
 };
 

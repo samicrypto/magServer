@@ -56,40 +56,15 @@ const router = express.Router();
  *                 $ref: '#/components/schemas/HardwareDevice'
  */
 
-
-/**
- * @swagger
- * /api/hd:
- *   post:
- *     summary: Create a new hardware device
- *     tags: [HardwareDevice]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/HardwareDevice'
- *     responses:
- *       200:
- *         description: The hardware device was successfully created
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/HardwareDevice'
- *       500:
- *         description: Some server error
- */
-
 router
   .route('/')
-    .post(HDController.createHardwareDevice)
     .get(validate(HDValidation.paginateHardwareDevice), HDController.paginateHardwareDevice);
 
 
 
 /**
  * @swagger
- * /api/device/{hdid}:
+ * /api/hd/{hdid}:
  *   get:
  *     summary: Get the device by id
  *     tags: [HardwareDevice]
@@ -119,7 +94,7 @@ router
 
 /**
  * @swagger
- * /pi/device/{hdid}:
+ * /pi/hd/edit/{hdid}:
  *  put:
  *    summary: Update the hardware device by the id
  *    tags: [HardwareDevice]
@@ -153,12 +128,59 @@ router
   .route('/edit/:hdid')
       .put(validate(HDValidation.editHardwareDevice), HDController.editHardwareDevice);
 
+
+/**
+ * @swagger
+ * /api/hardware/delete/{hdid}:
+ *   delete:
+ *     summary: Remove the hardware by id
+ *     tags: [HardwareDevice]
+ *     parameters:
+ *       - in: path
+ *         name: hdid
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The hardware device id
+ * 
+ *     responses:
+ *       200:
+ *         description: The hardware device was deleted
+ *       404:
+ *         description: The hardware device was not found
+ */
+
+
 router
   .route('/delete/:hdid')
     .delete(validate(HDValidation.deleteHardwareDevice), HDController.deleteHardwareDevice)
 
+  
+/**
+ * @swagger
+ * /api/hd/sdoh:
+ *   post:
+ *     summary: Set Device on Hardware
+ *     tags: [HardwareDevice]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/HardwareDevice'
+ *     responses:
+ *       200:
+ *         description: The hardware device was successfully created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/HardwareDevice'
+ *       500:
+ *         description: Some server error
+ */
+
 router
   .route('/sdoh') // set device on hardware
-    .put(HDController.setDeviceOnHardware)
+    .post(HDController.setDeviceOnHardware)
 
 module.exports = router;

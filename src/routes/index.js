@@ -11,7 +11,7 @@ const router = express.Router();
 
 
 router.use('/docs', docsRoute);
-router.use('/hw', hardwareRoute);
+router.use('/hardware', hardwareRoute);
 router.use('/device', deviceRoute);
 router.use('/hd', HardwareDeviceRoute);
 
