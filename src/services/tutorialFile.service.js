@@ -42,7 +42,6 @@ const addUploadFileDetailsToTutorialFile = async(tutorialFileId, fileType, fileD
 const paginateTutorialFiles = async(options) => {
 
     const tutorialFiles = await TutorialFile.find()
-    
     return tutorialFiles;
 
 };

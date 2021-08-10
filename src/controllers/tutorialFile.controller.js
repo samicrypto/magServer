@@ -99,7 +99,7 @@ const paginateTutorialFiles = catchAsync(async(req, res) => {
     const options = pick(req.query, ['sortBy', 'limit', 'page']);
     const {sort, limit, skip, page} = slsp(options);
     const tfs = await tutorialFileService.paginateTutorialFiles(options);
-    const result = arrayRes(tfs, limit, page);
+    const result = arrayRes(tfs, limit, page, 'tfPaginated', httpStatus.OK); 
     res.status(httpStatus.OK).send(result);
 });
 
