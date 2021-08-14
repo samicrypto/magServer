@@ -30,11 +30,16 @@ const getAppFileById = async(id) => {
     return appFile;
 };
 
+const getAppFileByVersion = async(version) => {
+    const appFile = await AppFile.findOne({ version: version });
+    if(!appFile) { throw new ApiError(httpStatus.BAD_REQUEST, 'AppFileWithThisVersionIsNotExist'); }
+    return appFile;
+};
 
-const chechAppVersion = async(appFileId, appVersion) => {
-    const version = parseInt(appVersion)
-    const appFile = await AppFile.findOne({ _id: appFileId });
-    if(appFile.version > version) { return appFile; };
+const chechAppVersion = async(appVersion) => {
+    const appFile = await AppFile.findOne({ version: { "$gt": appVersion } })
+    .sort({ version: -1 })
+    return appFile;
 };
 
 const editAppFileDetails = async(appFileId, newBody) => {
@@ -58,6 +63,7 @@ const deleteAppFileById = async(appFileId) => {
 module.exports = {
     createAppFile,
     getAppFileById,
+    getAppFileByVersion,
     addUploadFileDetailsToAppFile,
     chechAppVersion,
     editAppFileDetails,

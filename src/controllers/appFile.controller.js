@@ -35,17 +35,14 @@ const uploadAppFile = catchAsync(async(req, res) => {
   
 
 const chechAppVersion = catchAsync(async(req, res) => {
-    const appFileId = req.params.apfid;
     const version = req.params.version;
-    const report = await appFileService.chechAppVersion(appFileId, version);
-    if(report) {
-        const result = await ApiSuccess(report, 'newVersionIsExist', httpStatus.OK);
+    const report = await appFileService.chechAppVersion(version);
+    if(!report) { 
+        const result = await ApiSuccess("NewUpdateIsNotExist", httpStatus.OK);
         res.status(httpStatus.OK).send(result);
     }
-    else {
-        const result = await ApiSuccess('newVersionIsNotFound', httpStatus.NOT_FOUND);
-        res.status(httpStatus.OK).send(result);
-    }
+    const result = await ApiSuccess(report, 'newVersionIsExist', httpStatus.OK);
+    res.status(httpStatus.OK).send(result);
 });
 
 const editAppFileDetails = catchAsync(async(req, res) => {
@@ -74,6 +71,14 @@ const getAppFileById = catchAsync(async(req, res) => {
 });
 
 
+const getAppFileByVersion = catchAsync(async(req, res) => {
+    const appFileVersion= req.params.version;
+    const appFile = await appFileService.getAppFileByVersion(appFileVersion);
+    const result = await ApiSuccess(appFile, 'fileFound', httpStatus.OK);
+    res.status(httpStatus.OK).send(result);
+});
+
+
 const deleteAppFileById = catchAsync(async(req, res) => {
     const appFileId = req.params.apfid;
     console.log(appFileId);
@@ -89,5 +94,6 @@ module.exports = {
     editAppFileDetails,
     paginateAppFiles,
     getAppFileById,
+    getAppFileByVersion,
     deleteAppFileById
 };

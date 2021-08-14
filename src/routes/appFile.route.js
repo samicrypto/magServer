@@ -178,7 +178,7 @@ router
  */
 
 router
-    .route('/cnv/appFileId/:apfid/version/:version') // cnv check new version
+    .route('/cnv/version/:version') // cnv check new version
         .post(appFileController.chechAppVersion)
 
 
@@ -247,6 +247,33 @@ router
     .route('/:apfid')
         .get(appFileController.getAppFileById)
         
+/**
+ * @swagger
+ * /api/appfile/version/{version}:
+ *   get:
+ *     summary: Get the appfile by version
+ *     tags: [AppFile]
+ *     parameters:
+ *       - in: path
+ *         name: version
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The appfile version
+ *     responses:
+ *       200:
+ *         description: The appfile description by version
+ *         contens:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/AppFile'
+ *       404:
+ *         description: The appfile was not found
+ */
+
+ router
+ .route('/version/:version')
+     .get(appFileController.getAppFileByVersion)
 
 /**
  * @swagger
