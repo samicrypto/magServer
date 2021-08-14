@@ -188,5 +188,40 @@ router
   .route('/delete/:did')
     .delete(validate(deviceValidation.deleteDevice), deviceController.deleteDevice)
 
-    
+/**
+ * @swagger
+ * /api/device/cdash/{hsn}:
+ *  post:
+ *    summary: create the device by the hsn
+ *    tags: [Devices]
+ *    parameters:
+ *      - in: path
+ *        name: hsn
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: The hardware serial number
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            $ref: '#/components/schemas/Device'
+ *    responses:
+ *      200:
+ *        description: The Device was created
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Device'
+ *      404:
+ *        description: The Hardware was not found
+ *      500:
+ *        description: Some error happened
+ */
+
+router
+  .route('/cdash/:hsn')
+    .post(deviceController.createDeviceAndSetHardewareSerialNumber)
+
 module.exports = router;

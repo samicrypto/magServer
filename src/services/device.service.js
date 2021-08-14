@@ -1,11 +1,11 @@
 const httpStatus = require('http-status');
 const { Device } = require('../models');
 const ApiError = require('../utils/ApiError');
-const { hardwareService } = require('./index');
+const hardwareDeviceService = require('./hardwareDevice.service');
 
 
-const createDevice = async(HBody) => {
-    const device = await Device.create(HBody);
+const createDevice = async(DBody) => {
+    const device = await Device.create(DBody);
     return device;
 };
 
@@ -34,10 +34,19 @@ const deleteDevice = async(did) => {
 };
 
 
+const createDeviceAndSetHardewareSerialNumber = async(deviceBody, hardwareSerialNUmber) => {
+    let device = await Device.findOne({ imei: deviceBody.imei });
+    if(!device) { device = await createDevice(deviceBody) };
+
+    const result = await hardwareDeviceService.setDeviceOnHardware(device.imei, hardwareSerialNUmber);
+    return result;
+};
+
 module.exports = {
     createDevice,
     editDevice,
     getDevice,
     paginateDevice,
     deleteDevice,
+    createDeviceAndSetHardewareSerialNumber
 };
