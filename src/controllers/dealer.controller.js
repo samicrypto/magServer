@@ -1,6 +1,5 @@
 const httpStatus = require('http-status');
 const pick = require('../utils/pick');
-const ApiError = require('../utils/ApiError');
 const ApiSuccess = require('../utils/ApiSuccess');
 const catchAsync = require('../utils/catchAsync');
 const { dealerService } = require('../services');
@@ -11,7 +10,7 @@ const { arrayRes } = require('../utils/ArrayRes');
 const createDealer = catchAsync(async(req, res) => {
     const DBody = req.body;
     const dealer = await dealerService.createDealer(DBody);
-    const result = await ApiSuccess(device, 'DealerIsCreate', httpStatus.CREATED);
+    const result = await ApiSuccess(dealer, 'DealerIsCreate', httpStatus.CREATED);
     res.status(httpStatus.CREATED).send(result);
 });
 
@@ -26,7 +25,7 @@ const editDealer = catchAsync(async(req, res) => {
 const getDealer = catchAsync(async(req, res) => {
     const did = req.params.did;
     const dealer = await dealerService.getDealer(did);
-    const result = await ApiSuccess(device, 'getDealer', httpStatus.OK);
+    const result = await ApiSuccess(dealer, 'getDealer', httpStatus.OK);
     res.status(httpStatus.OK).send(result);
 });
 
@@ -35,7 +34,7 @@ const paginateDealer = catchAsync(async(req, res) => {
     const options = pick(req.query, ['sortBy', 'limit', 'page']);
     const {sort, limit, skip, page} = slsp(options);
     const dealers = await dealerService.paginateDealer(options);
-    const result = arrayRes(dealers, limit, page, 'DevicePaginated', httpStatus.OK); 
+    const result = arrayRes(dealers, limit, page, 'DealerPaginated', httpStatus.OK); 
     res.status(httpStatus.OK).send(result)
 });
 

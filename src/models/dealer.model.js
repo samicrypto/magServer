@@ -7,14 +7,15 @@ const dealerSchema = mongoose.Schema(
       type: String,
       required: true
     },
-    type: {
+    type: [{
       type: String,
-      enum:['shop', 'suppourt'],
+      enum:['shop', 'support'],
       required: true
-    },
+    }],
     address: {
-      type: String,
-      required: true
+      street: String,
+      city: String,
+      zip: String
     }
   },
   {
