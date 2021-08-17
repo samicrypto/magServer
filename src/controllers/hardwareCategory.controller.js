@@ -1,55 +1,87 @@
 const httpStatus = require('http-status');
 const pick = require('../utils/pick');
 const ApiError = require('../utils/ApiError');
-const catchAsync = require('../utils/catchAsync');a
-const { tutorialService } = require('../services');
+const catchAsync = require('../utils/catchAsync');
 const upload = require('../middlewares/uploadFile');
-const tutorialCategoryService = require('../services/tutorialCategory.service');
+const HCService = require('../services/hardwareCategory.service');
+const ApiSuccess = require('../utils/ApiSuccess');
+const { slsp } = require('../utils/ArrayRes');
+const { arrayRes } = require('../utils/ArrayRes');
 
-const createTutorialMainCategory = catchAsync(async(req, res) => {
-    const tutorialBody = req.body;
-    const result = await tutorialCategoryService.createTutorialMainCategory(tutorialBody);
+const createTypeCategory = catchAsync(async(req, res) => {
+    const categoryBody = req.body;
+    const type = await HCService.createTypeCategory(categoryBody);
+    const result = await ApiSuccess(type, 'TypeIsCreate', httpStatus.CREATED);
     res.status(httpStatus.CREATED).send(result);
 });
 
-const createTutorialSubCategory = catchAsync(async(req, res) => {
-    const mainTutorialSlug = req.params.mainTutorial;
-    const tutorialBody = req.body;
-    const mainTutorial = await tutorialCategoryService.getTutorialBySlug(mainTutorialSlug);
-    if(!mainTutorial) { throw new ApiError(httpStatus.NOT_FOUND, 'TutorialNotFound'); };
-    const result = await tutorialService.createTutorialSubCategory(tutorialBody, mainTutorial);
+const createBrandCategory = catchAsync(async(req, res) => {
+    const typeSlug = req.params.typeSlug;
+    const categoryBody = req.body;
+    const type = await HCService.getCategoryBySlug(typeSlug);
+    if(!type) { throw new ApiError(httpStatus.NOT_FOUND, 'CategoryNotFound'); };
+    const brand = await HCService.createBrandCategory(categoryBody, type);
+    const result = await ApiSuccess(brand, 'BrandIsCreate', httpStatus.CREATED);
     res.status(httpStatus.CREATED).send(result);
 });
 
-const getMainTutorial = catchAsync(async(req,res) => {
-    const mainsTutorial = await tutorialService.getMainTutorial();
-    res.status(httpStatus.OK).send(mainsTutorial);
+const createModelCategory = catchAsync(async(req, res) => {
+  const brandSlug = req.params.brandSlug;
+  const categoryBody = req.body;
+  const brand = await HCService.getCategoryBySlug(brandSlug);
+  if(!brand) { throw new ApiError(httpStatus.NOT_FOUND, 'CategoryNotFound'); };
+  const model = await HCService.createModelCategory(categoryBody, brand);
+  const result = await ApiSuccess(model, 'ModelIsCreate', httpStatus.CREATED);
+  res.status(httpStatus.CREATED).send(result);
 });
 
-const getSubTutorial = catchAsync(async(req,res) => {
-    const mainSlug = req.params.mainSlug;
-    const subTutorial = await tutorialService.getSubTutorial(mainSlug);
-    res.status(httpStatus.OK).send(subTutorial);
+const getTypeCategory = catchAsync(async(req,res) => {
+    const options = pick(req.query, ['sortBy', 'limit', 'page']);
+    const {sort, limit, skip, page} = slsp(options);
+    const types = await HCService.getTypeCategory();
+    const result = arrayRes(types, limit, page, 'TypePaginated', httpStatus.OK); 
+    res.status(httpStatus.OK).send(result);
 });
 
-const getTutorialBySlug = catchAsync(async(req,res) => {
+const getBrandCategory = catchAsync(async(req,res) => {
+    const typeSlug = req.params.typeSlug;
+    const options = pick(req.query, ['sortBy', 'limit', 'page']);
+    const {sort, limit, skip, page} = slsp(options);
+    const brands = await HCService.getBrandCategory(typeSlug);
+    const result = arrayRes(brands, limit, page, 'BrandPaginated', httpStatus.OK); 
+    res.status(httpStatus.OK).send(result);
+});
+
+const getModelCategory = catchAsync(async(req,res) => {
+  const brandSlug = req.params.brandSlug;
+  const options = pick(req.query, ['sortBy', 'limit', 'page']);
+  const {sort, limit, skip, page} = slsp(options);
+  const models = await HCService.getModelCategory(brandSlug);
+  const result = arrayRes(models, limit, page, 'ModelPaginated', httpStatus.OK); 
+  res.status(httpStatus.OK).send(result);
+});
+
+const getCategoryBySlug = catchAsync(async(req,res) => {
     const slug = req.params.slug;
-    const tutorial = await tutorialService.getTutorialBySlug(slug);
-    res.status(httpStatus.OK).send(tutorial);
+    const category = await HCService.getCategoryBySlug(slug);
+    const result = await ApiSuccess(category, 'getCategory', httpStatus.OK);
+    res.status(httpStatus.OK).send(result);
 });
 
-const deleteTutorialBySlug = catchAsync(async(req, res) => {
+const deleteCategoryBySlug = catchAsync(async(req, res) => {
     const slug = req.params.slug;
-    const deleteTutorial = await tutorialService.deleteTutorialBySlug(slug);
-    res.status(httpStatus.OK).send(deleteTutorial);
+    const deleteCategory = await HCService.deleteCategoryBySlug(slug);
+    res.status(httpStatus.OK).send(deleteCategory);
 });
 
 
 module.exports = {
-    createTutorialMainCategory,
-    createTutorialSubCategory,
-    getMainTutorial,
-    getSubTutorial,
-    getTutorialBySlug,
-    deleteTutorialBySlug
+    createTypeCategory,
+    createBrandCategory,
+    createModelCategory,
+    getTypeCategory,
+    getBrandCategory,
+    getModelCategory,
+    getCategoryBySlug,
+    deleteCategoryBySlug
 };

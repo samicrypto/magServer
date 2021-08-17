@@ -51,13 +51,16 @@ const getTypeCategory = async() => {
 
 const getBrandCategory = async(typeSlug) => {
     const type = await HardwareCategory.findOne({ slug: typeSlug });
-    const brands = await HardwareCategory.find({ parent: { $in: [new RegExp('^' + type.category)] } });
+    // const brands = await HardwareCategory.find({ parent: { $in: [new RegExp('^' + type.category)] } });
+    const brands = await HardwareCategory.find({ parent: type.category });
     return brands;
 };
 
 const getModelCategory = async(brandSlug) => {
   const brand = await HardwareCategory.findOne({ slug: brandSlug });
-  const brands = await HardwareCategory.find({ parent: { $in: [new RegExp('^' + brand.category)] } });
+  if(!brand) { throw new ApiError(httpStatus.BAD_REQUEST, 'CategoryAlreadyTaken'); }
+  // const brands = await HardwareCategory.find({ parent: { $in: [new RegExp('^' + brand.category)] } });
+  const brands = await HardwareCategory.find({ parent: brand.category });
   return brands;
 };
 
