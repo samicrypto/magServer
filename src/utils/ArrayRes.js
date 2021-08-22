@@ -12,18 +12,21 @@ function slsp(options) {
     return { sort, limit, skip, page }
 };
 
-function arrayRes(body, limit, page) {
-    const totalResults = body.length;
-    const totalPages = Math.ceil(totalResults / limit);
-    const result = {
-      body,
-      page,
-      limit,
-      totalPages,
-      totalResults,
-    };
-    
-    return result;
+function arrayRes(array, limit, page, message, statusCode) {
+  const totalResults = array.length;
+  const body = array.slice((page - 1) * limit, page * limit);
+  let totalPages = Math.ceil(totalResults / limit);
+  const result = {
+    body,
+    page,
+    limit,
+    totalPages,
+    totalResults,
+    message,
+    statusCode
+  };
+  
+  return result;
 }
 
 module.exports = { slsp, arrayRes };

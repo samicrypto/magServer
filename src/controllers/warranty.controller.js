@@ -15,10 +15,10 @@ const createWarranty = catchAsync(async(req, res) => {
     res.status(httpStatus.CREATED).send(result);
 });
 
-const editWaranty = catchAsync(async(req, res) => {
+const editWarranty = catchAsync(async(req, res) => {
     const did = req.params.did;
     const editBody = req.body;
-    const newdevice = await warrantyService.editWaranty(did, editBody);
+    const newdevice = await warrantyService.editWarranty(did, editBody);
     const result = await ApiSuccess(newdevice, 'deviceIsEdit', httpStatus.OK);
     res.status(httpStatus.OK).send(result);
 });
@@ -50,7 +50,7 @@ const deleteWarranty = catchAsync(async(req, res) => {
 
 module.exports = { 
     createWarranty,
-    editWaranty,
+    editWarranty,
     getWarranty,
     paginateWarranty,
     deleteWarranty,
