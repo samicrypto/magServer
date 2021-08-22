@@ -12,7 +12,11 @@ const warrantySchema = mongoose.Schema(
       unique: true,
       required: true
     },
-    hradwareSerialNumber: {
+    hardwareSerialNumber: {
+      type: String,
+      required: true
+    },
+    category: {
       type: String,
       required: true
     },

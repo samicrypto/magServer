@@ -42,9 +42,9 @@ const router = express.Router();
  *         id: d5fE_asz
  *         title: Xiaomi
  *         deviceImei: "45641564864654654"
- *         hradwareSerialNumber: "10"
- *         startDate: 562136543
- *         expireDate: 562136543
+ *         hardwareSerialNumber: "10"
+ *         startDate: "1629619790447"
+ *         expireDate: "1630224501000"
  */
 
  /**

@@ -3,10 +3,12 @@ const { password, objectId } = require('./custom.validation');
 
 const createWarranty = {
   body: Joi.object().keys({
-    name: Joi.string().required(),
-    imei: Joi.string().required(),
-    androidVersion: Joi.string().required(),
-    regDate: Joi.date().required(),
+    title: Joi.string().required(),
+    deviceImei: Joi.string().required(),
+    hardwareSerialNumber: Joi.string().required(),
+    category: Joi.string(),
+    startDate: Joi.string().required(),
+    expireDate: Joi.string().required(),
   }),
 };
 
@@ -19,26 +21,27 @@ const paginateWarranty = {
 
 const getWarranty = {
   params: Joi.object().keys({
-    did: Joi.string().custom(objectId),
+    wid: Joi.string().custom(objectId),
   }),
 };
 
 const editWarranty = {
     params: Joi.object().keys({
-      did: Joi.string().custom(objectId),
+      wid: Joi.string().custom(objectId),
     }),
     body: Joi.object().keys({
-      name: Joi.string(),
-      imei: Joi.string(),
-      androidVersion: Joi.string(),
-      regDate: Joi.date(),
-      hardwareSerialNamber: Joi.string()
+      title: Joi.string().required(),
+      deviceImei: Joi.string().required(),
+      hardwareSerialNumber: Joi.string().required(),
+      category: Joi.string(),
+      startDate: Joi.string().required(),
+      expireDate: Joi.string().required(),
     }),
 };
 
 const deleteWarranty = {
   params: Joi.object().keys({
-    did: Joi.string().custom(objectId),
+    wid: Joi.string().custom(objectId),
   })
 };
 
