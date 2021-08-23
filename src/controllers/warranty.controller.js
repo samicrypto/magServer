@@ -3,15 +3,14 @@ const pick = require('../utils/pick');
 const ApiError = require('../utils/ApiError');
 const ApiSuccess = require('../utils/ApiSuccess');
 const catchAsync = require('../utils/catchAsync');
-const { warrantyService, warrantyCategoryService } = require('../services');
+const { warrantyService, warrantyCategoryService, hardwareService } = require('../services');
 const { slsp } = require('../utils/ArrayRes');
 const { arrayRes } = require('../utils/ArrayRes');
+const { Hardware } = require('../models');
 
 
 const createWarranty = catchAsync(async(req, res) => {
     const WBody = req.body;
-    const category = req.body.category;
-    await warrantyCategoryService.getCategoryBySlug(category);
     const warranty = await warrantyService.createWarranty(WBody);
     const result = await ApiSuccess(warranty, 'WarrantyIsCreate', httpStatus.CREATED);
     res.status(httpStatus.CREATED).send(result);

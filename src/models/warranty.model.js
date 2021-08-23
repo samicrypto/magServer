@@ -9,7 +9,6 @@ const warrantySchema = mongoose.Schema(
     },
     deviceImei: {
       type: String,
-      unique: true,
       required: true
     },
     hardwareSerialNumber: {
