@@ -104,13 +104,13 @@ router
 
 /**
  * @swagger
- * /api/warranty/{did}:
+ * /api/warranty/{wid}:
  *   get:
  *     summary: Get the Warranty by id
  *     tags: [Warranty]
  *     parameters:
  *       - in: path
- *         name: did
+ *         name: wid
  *         schema:
  *           type: string
  *         required: true
@@ -127,20 +127,20 @@ router
  */
 
 router
-  .route('/:did')
+  .route('/:wid')
     .get(warrantyController.getWarranty);
 
 
 
 /**
  * @swagger
- * /api/warranty/edit/{did}:
+ * /api/warranty/edit/{wid}:
  *  put:
  *    summary: Update the Warranty by the id
  *    tags: [Warranty]
  *    parameters:
  *      - in: path
- *        name: did
+ *        name: wid
  *        schema:
  *          type: string
  *        required: true
@@ -165,18 +165,18 @@ router
  */
 
 router
-  .route('/edit/:did')
+  .route('/edit/:wid')
       .put(validate(warrantyValidation.editWarranty), warrantyController.editWarranty);
 
 /**
  * @swagger
- * /api/warranty/delete/{did}:
+ * /api/warranty/delete/{wid}:
  *   delete:
  *     summary: Remove the Warranty by id
  *     tags: [Warranty]
  *     parameters:
  *       - in: path
- *         name: did
+ *         name: wid
  *         schema:
  *           type: string
  *         required: true
@@ -190,22 +190,22 @@ router
  */
 
 router
-  .route('/delete/:did')
+  .route('/delete/:wid')
     .delete(validate(warrantyValidation.deleteWarranty), warrantyController.deleteWarranty)
 
 /**
  * @swagger
- * /api/warranty/cdash/{hsn}:
+ * /api/warranty/remainingTime/{hid}:
  *  post:
- *    summary: create the Warranty by the hsn
+ *    summary: remainingTime the Warranty by the hid
  *    tags: [Warranty]
  *    parameters:
  *      - in: path
- *        name: hsn
+ *        name: hid
  *        schema:
  *          type: string
  *        required: true
- *        description: The hardware serial number
+ *        description: The warranty remainingTime
  *    requestBody:
  *      required: true
  *      content:
@@ -220,9 +220,13 @@ router
  *            schema:
  *              $ref: '#/components/schemas/Warranty'
  *      404:
- *        description: The Hardware was not found
+ *        description: The Warranty was not found
  *      500:
  *        description: Some error happened
  */
+
+router
+  .route('/remainingTime/:hid')
+    .get(warrantyController.warrantyRemainingTime)
 
 module.exports = router;

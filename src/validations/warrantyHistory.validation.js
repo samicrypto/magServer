@@ -1,13 +1,16 @@
 const Joi = require('@hapi/joi');
-const { password, objectId } = require('./custom.validation');
+const { objectId } = require('./custom.validation');
 
-const createWarranty = {
+const warrantyUsage = {
+  params: Joi.object().keys({
+    wid: Joi.string().custom(objectId),
+  }),
   body: Joi.object().keys({
     title: Joi.string().required(),
-    hardwareId: Joi.string().required(),
-    category: Joi.string(),
-    startDate: Joi.string().required(),
-    expireDate: Joi.string().required(),
+    description: Joi.string().required(),
+    warrantyUsageDate: Joi.string(),
+    deliveryDate: Joi.string().required(),
+    status: Joi.string().required(),
   }),
 };
 
@@ -29,11 +32,11 @@ const editWarranty = {
       wid: Joi.string().custom(objectId),
     }),
     body: Joi.object().keys({
-      title: Joi.string(),
-      hardwareId: Joi.string(),
+      title: Joi.string().required(),
+      hardwareId: Joi.string().required(),
       category: Joi.string(),
-      startDate: Joi.string(),
-      expireDate: Joi.string(),
+      startDate: Joi.string().required(),
+      expireDate: Joi.string().required(),
     }),
 };
 
@@ -45,7 +48,7 @@ const deleteWarranty = {
 
 
 module.exports = {
-  createWarranty,
+  warrantyUsage,
   paginateWarranty,
   getWarranty,
   editWarranty,

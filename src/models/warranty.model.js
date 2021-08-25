@@ -7,12 +7,11 @@ const warrantySchema = mongoose.Schema(
       type: String,
       required: true
     },
-    deviceImei: {
-      type: String,
-      required: true
-    },
-    hardwareSerialNumber: {
-      type: String,
+    hardwareId: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: 'Hardware',
+      unique: true,
+      index: true,
       required: true
     },
     category: {
