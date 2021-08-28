@@ -1,5 +1,6 @@
 const httpStatus = require('http-status');
 const { HardwareCategory } = require('../models');
+const Hardware = require('../models/hardware.model');
 const ApiError = require('../utils/ApiError');
 
 const createTypeCategory = async(typeBody) => {
@@ -75,21 +76,31 @@ const deleteCategoryBySlug = async(slug) => {
 };  
 
 
-const editCategoryById = async(cid) => {
-    const editCategory = await HardwareCategory.findOne({ _id: cid });
-    const newSlug = "benzzz";
-    const list = await HardwareCategory.find({ category: { $in: [new RegExp(`${editCategory.slug}`)] } });
+const editCategorySlugById = async(cid, newSlug) => {
+    const targetCategory = await HardwareCategory.findOne({ _id: cid });
+    const list = await HardwareCategory.find({ category: { $in: [new RegExp(`${targetCategory.slug}`)] } });
     list.forEach(async(doc) => { 
-        const newCategory = doc.category.replace(`${editCategory.slug}`, newSlug)
-        const newParent = doc.parent.replace(`${editCategory.slug}`, newSlug)
+        const newCategory = doc.category.replace(`${targetCategory.slug}`, newSlug)
+        const newParent = doc.parent.replace(`${targetCategory.slug}`, newSlug)
 
         await HardwareCategory.updateOne({ _id: doc._id }, { '$set': {
             "category": newCategory,
             "parent": newParent 
         } }, { "new": true, "upsert": true })
-    })
+    });
+    await HardwareCategory.updateOne({ _id: cid }, { '$set': {
+        "slug": newSlug,
+    } }, { "new": true, "upsert": true })
     const newList = await HardwareCategory.find({ category: { $in: [new RegExp(`${newSlug}`)] } });
     return newList;
+};
+
+const editCategoryTitleByID = async(cid, newTitle) => {
+    const newCategory = await HardwareCategory.findOneAndUpdate({ _id: cid }, { '$set': {
+        "title": newTitle,
+    } }, { "new": true, "upsert": true })
+
+    return newCategory;
 };
 
 module.exports = {
@@ -101,5 +112,6 @@ module.exports = {
     getModelCategory,
     getCategoryBySlug,
     deleteCategoryBySlug,
-    editCategoryById
+    editCategorySlugById,
+    editCategoryTitleByID
 };

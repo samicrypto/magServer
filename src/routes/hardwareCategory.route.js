@@ -41,7 +41,11 @@ router
         .delete(validate(HClValidation.deleteCategoryBySlug), HCController.deleteCategoryBySlug)
 
 router
-    .route('/edit/:cid')
-        .put(HCController.editCategoryById)
+    .route('/edit-slug/:cid')
+        .put(HCController.editCategorySlugById)
+
+router
+    .route('/edit-title/:cid')
+        .put(HCController.editCategoryTitleByID)
 
 module.exports = router;

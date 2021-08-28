@@ -74,12 +74,21 @@ const deleteCategoryBySlug = catchAsync(async(req, res) => {
     res.status(httpStatus.OK).send(deleteCategory);
 });
 
-const editCategoryById = catchAsync(async(req, res) => {
+const editCategorySlugById = catchAsync(async(req, res) => {
     const categoryId = req.params.cid;
-    const result = await HCService.editCategoryById(categoryId);
-    // const result = await ApiSuccess(category, 'updateCategory', httpStatus.OK);
+    const categories = await HCService.editCategorySlugById(categoryId);
+    const result = await ApiSuccess(categories, 'updateCategory', httpStatus.OK);
     res.status(httpStatus.OK).send(result);
 });
+
+const editCategoryTitleByID = catchAsync(async(req, res) => {
+    const categoryId = req.params.cid;
+    const title = req.body.title;
+    const categories = await HCService.editCategoryTitleByID(categoryId, title);
+    const result = await ApiSuccess(categories, 'updateCategory', httpStatus.OK);
+    res.status(httpStatus.OK).send(result);
+});
+
 
 module.exports = {
     createTypeCategory,
@@ -90,5 +99,6 @@ module.exports = {
     getModelCategory,
     getCategoryBySlug,
     deleteCategoryBySlug,
-    editCategoryById
+    editCategorySlugById,
+    editCategoryTitleByID
 };
