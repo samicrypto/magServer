@@ -7,15 +7,16 @@ const warrantySchema = mongoose.Schema(
       type: String,
       required: true
     },
-    hardwareId: {
+    hardwareID: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: 'Hardware',
       unique: true,
       index: true,
       required: true
     },
-    category: {
-      type: String,
+    warrantyCategoryID: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref:"WarrantyCategory",
       required: true
     },
     startDate: {

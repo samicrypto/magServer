@@ -3,7 +3,7 @@ const { toJSON, paginate } = require('./plugins');
 
 const warrantyHistorySchema = mongoose.Schema(
   {
-    warrantyId: {
+    warrantyID: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: 'Warranty',
       required: true

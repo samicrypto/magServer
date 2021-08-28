@@ -3,10 +3,10 @@ const {  WarrantyHistory, Warranty } = require('../models');
 const ApiError = require('../utils/ApiError');
 
 
-const warrantyUsage = async(WHBody, warrantyId) => {
+const warrantyUsage = async(WHBody, warrantyID) => {
 
     const warrantyHistory = await WarrantyHistory.create({
-        warrantyId: warrantyId,
+        warrantyID: warrantyID,
         title: WHBody.title,
         description: WHBody.description,
         warrantyUsageDate: WHBody.warrantyUsageDate,
@@ -16,12 +16,12 @@ const warrantyUsage = async(WHBody, warrantyId) => {
     return warrantyHistory;
 };
 
-const getWarrantyHistoryByWarrantyId = async(warrantyId) => {
-  const list = await WarrantyHistory.find({ warrantyId: warrantyId });
+const getWarrantyHistoryByWarrantyID = async(warrantyID) => {
+  const list = await WarrantyHistory.find({ warrantyID: warrantyID });
   return list;
 };
 
 module.exports = {
     warrantyUsage,
-    getWarrantyHistoryByWarrantyId
+    getWarrantyHistoryByWarrantyID
 };

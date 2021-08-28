@@ -28,6 +28,11 @@ const getCategoryBySlug = async(categorySlug) => {
     return category;
 };
 
+const getCategoryByID = async(categoryID) => {
+    const category = await WarrantyCategory.findOne({ _id: categoryID });
+    if(!category) { throw new ApiError(httpStatus.NOT_FOUND, 'CategoryNotFound') };
+    return category;
+};
 
 const editCategoryById = async(cid, editBody) => {
   const newCategory = await WarrantyCategory.findOneAndUpdate({ _id: cid }, { '$set': editBody }, { "new": true, "upsert": true });
@@ -47,6 +52,7 @@ module.exports = {
     createWarrantyCategory,
     getWarrantyCategory,
     getCategoryBySlug,
+    getCategoryByID,
     editCategoryById,
     deleteCategoryBySlug,
 };

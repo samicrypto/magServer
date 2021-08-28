@@ -11,17 +11,17 @@ const { WarrantyHistory } = require('../models');
 
 const warrantyUsage = catchAsync(async(req, res) => {
     const WHBody = req.body;
-    const warrantyId = req.params.wid;
+    const warrantyID = req.params.wid;
     console.log(WHBody);
-    const warrantyHistory = await warrantyHistoryService.warrantyUsage(WHBody, warrantyId);
+    const warrantyHistory = await warrantyHistoryService.warrantyUsage(WHBody, warrantyID);
     const result = await ApiSuccess(warrantyHistory, 'WarrantyHistoryIsCreate', httpStatus.CREATED);
     res.status(httpStatus.CREATED).send(result);
 });
 
 
-const getWarrantyHistoryByWarrantyId = catchAsync(async(req, res) => {
+const getWarrantyHistoryByWarrantyID = catchAsync(async(req, res) => {
     const wid = req.params.wid;
-    const warrantyHistory = await warrantyHistoryService.getWarrantyHistoryByWarrantyId(wid);
+    const warrantyHistory = await warrantyHistoryService.getWarrantyHistoryByWarrantyID(wid);
     const result = await ApiSuccess(warrantyHistory, 'getWarrantywarrantyHistory', httpStatus.OK);
     res.status(httpStatus.OK).send(result);
 });
@@ -51,7 +51,7 @@ const warrantyRemainingTime = catchAsync(async(req, res) => {
 
 module.exports = { 
     warrantyUsage,
-    getWarrantyHistoryByWarrantyId,
+    getWarrantyHistoryByWarrantyID,
     paginateWarranty,
     deleteWarranty,
     warrantyRemainingTime

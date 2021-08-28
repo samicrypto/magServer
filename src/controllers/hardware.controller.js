@@ -3,15 +3,16 @@ const pick = require('../utils/pick');
 const ApiError = require('../utils/ApiError');
 const ApiSuccess = require('../utils/ApiSuccess');
 const catchAsync = require('../utils/catchAsync');
-const { hardwareService, warrantyCategoryService } = require('../services');
+const { hardwareService, warrantyCategoryService, hardwareCategoryService } = require('../services');
 const { slsp } = require('../utils/ArrayRes');
 const { arrayRes } = require('../utils/ArrayRes');
 
 
 const createHardware = catchAsync(async(req, res) => {
     const HBody = req.body;
-    await warrantyCategoryService.getCategoryBySlug(HBody.warrantyType);
-    hardware = await hardwareService.createHardware(HBody);
+    await warrantyCategoryService.getCategoryByID(HBody.warrantyCategoryID);
+    await hardwareCategoryService.getCategoryByID(HBody.hardwareCategoryID)
+    const hardware = await hardwareService.createHardware(HBody);
     const result = await ApiSuccess(hardware, 'HardwareIsCreate', httpStatus.CREATED);
     res.status(httpStatus.CREATED).send(result);
 });

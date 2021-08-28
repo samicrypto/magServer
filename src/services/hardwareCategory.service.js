@@ -71,6 +71,12 @@ const getCategoryBySlug = async(categorySlug) => {
     return category;
 };
 
+const getCategoryByID = async(categoryID) => {
+    const category = await HardwareCategory.findOne({ _id: categoryID });
+    if(!category) { throw new ApiError(httpStatus.NOT_FOUND, 'CategoryNotFound') };
+    return category;
+};
+
 const deleteCategoryBySlug = async(slug) => {
     const category = await HardwareCategory.find({  });
 };  
@@ -111,6 +117,7 @@ module.exports = {
     getBrandCategory,
     getModelCategory,
     getCategoryBySlug,
+    getCategoryByID,
     deleteCategoryBySlug,
     editCategorySlugById,
     editCategoryTitleByID

@@ -48,8 +48,8 @@ const deleteWarranty = catchAsync(async(req, res) => {
 });
 
 const warrantyRemainingTime = catchAsync(async(req, res) => {
-    const hardwareId = req.params.hid;
-    const remainingTime = await warrantyService.warrantyRemainingTime(hardwareId);
+    const hardwareID = req.params.hid;
+    const remainingTime = await warrantyService.warrantyRemainingTime(hardwareID);
     const result = await ApiSuccess(remainingTime, 'remainingTime', httpStatus.OK);
     res.status(httpStatus.OK).send(result);
 });

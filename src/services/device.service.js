@@ -42,6 +42,10 @@ const createDeviceAndSetHardewareSerialNumber = async(deviceBody, hardwareSerial
     return result;
 };
 
+const restDevice = async(deviceID) => {
+    
+};
+
 module.exports = {
     createDevice,
     editDevice,

@@ -14,14 +14,14 @@ const router = express.Router();
  *     WarrantyHistory:
  *       type: object
  *       required:
- *         - warrantyId
+ *         - warrantyID
  *         - title
  *         - description
  *         - warrantyUsageDate
  *         - deliveryDate
  *         - status
  *       properties:
- *         warrantyId:
+ *         warrantyID:
  *           type: string
  *           description: The id of the WarrantyHistory
  *         title:
@@ -40,7 +40,7 @@ const router = express.Router();
  *            type: string
  *            description: The WarrantyHistory register date
  *       example:
- *         warrantyId: "d5fE9d8asdju89asdh9y89das"
+ *         warrantyID: "d5fE9d8asdju89asdh9y89das"
  *         title: "warranty 1"
  *         description: "thi is des of warranty history"
  *         warrantyUsageDate: "1629619790489"
@@ -102,7 +102,7 @@ router
 
 router
   .route('/:wid')
-    .get(validate(WHValidation.getWarrantyHistoryByWarrantyId), WHController.getWarrantyHistoryByWarrantyId);
+    .get(validate(WHValidation.getWarrantyHistoryByWarrantyID), WHController.getWarrantyHistoryByWarrantyID);
 
 
 module.exports = router;

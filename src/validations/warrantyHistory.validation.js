@@ -47,6 +47,12 @@ const deleteWarranty = {
 };
 
 
+const getWarrantyHistoryByWarrantyID = {
+  params: Joi.object().keys({
+    wid: Joi.string().custom(objectId),
+  })
+};
+
 module.exports = {
   warrantyUsage,
   paginateWarranty,

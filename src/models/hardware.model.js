@@ -16,9 +16,17 @@ const hardwareSchema = mongoose.Schema(
       type: Number,
       required: true
     },
-    warrantyType: {
-      type: String,
+    hardwareCategoryID: {
+      type: mongoose.SchemaTypes.ObjectId,
       required: true
+    },
+    warrantyCategoryID: {
+      type: mongoose.SchemaTypes.ObjectId,
+      required: true
+    },
+    diactive: {
+      type: Boolean,
+      default: false
     }
   },
   {

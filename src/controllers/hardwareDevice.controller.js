@@ -39,9 +39,9 @@ const deleteHardwareDevice = catchAsync(async(req, res) => {
 });
 
 const setDeviceOnHardware = catchAsync(async(req, res) => {
-    const deviceImei = req.body.deviceImei;
-    const hardwareSerialNumber = req.body.hardwareSerialNumber;
-    const device = await hardwareDeviceService.setDeviceOnHardware(deviceImei, hardwareSerialNumber);
+    const deviceID = req.body.deviceID;
+    const hardwareID = req.body.hardwareID;
+    const device = await hardwareDeviceService.setDeviceOnHardware(deviceID, hardwareID);
     const result = await ApiSuccess(device, 'DeviceIsSetOnHardware', httpStatus.OK);
     res.status(httpStatus.OK).send(result);
 });

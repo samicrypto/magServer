@@ -6,7 +6,8 @@ const createHardware = {
     name: Joi.string().required(),
     serialNumber: Joi.string().required(),
     capacity: Joi.number().required(),
-    warrantyType: Joi.string()
+    hardwareCategoryID: Joi.string().required(),
+    warrantyCategoryID: Joi.string().required()
   }),
 };
 

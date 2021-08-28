@@ -4,7 +4,7 @@ const { password, objectId } = require('./custom.validation');
 const createWarranty = {
   body: Joi.object().keys({
     title: Joi.string().required(),
-    hardwareId: Joi.string().required(),
+    hardwareID: Joi.string().required(),
     category: Joi.string(),
     startDate: Joi.string().required(),
     expireDate: Joi.string().required(),
@@ -30,7 +30,7 @@ const editWarranty = {
     }),
     body: Joi.object().keys({
       title: Joi.string(),
-      hardwareId: Joi.string(),
+      hardwareID: Joi.string(),
       category: Joi.string(),
       startDate: Joi.string(),
       expireDate: Joi.string(),

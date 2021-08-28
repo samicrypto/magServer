@@ -4,16 +4,16 @@ const ApiError = require('../utils/ApiError');
 const ms = require('ms');
 
 const createWarranty = async(WBody) => {
-    const hardware = await Hardware.findOne({ _id: WBody.hardwareId });
+    const hardware = await Hardware.findOne({ _id: WBody.hardwareID });
     if(!hardware) { throw new ApiError( httpStatus.NOT_FOUND, 'HardwareNotFound') };
 
-    var warranty = await Warranty.findOne({ hardwareId: WBody.hardwareId });
+    var warranty = await Warranty.findOne({ hardwareID: WBody.hardwareID });
     if(warranty) { throw new ApiError( httpStatus.NOT_FOUND, 'WarrantyExist') };
 
     warranty = await Warranty.create({
         title: WBody.title,
-        hardwareId: WBody.hardwareId,
-        category: hardware.warrantyType,
+        hardwareID: WBody.hardwareID,
+        WarrantyCategoryID: hardware.warrantyCategoryID,
         startDate: WBody.startDate,
         expireDate: WBody.expireDate
     });
@@ -45,8 +45,8 @@ const deleteWarranty = async(wid) => {
 };
 
 
-const warrantyRemainingTime = async(hardwareId) => {
-    const warravty = await Warranty.findOne({ hardwareId: hardwareId });
+const warrantyRemainingTime = async(hardwareID) => {
+    const warravty = await Warranty.findOne({ hardwareID: hardwareID });
     const curentTime = new Date().getTime();
     const remainingTimeByMS = warravty.expireDate - curentTime;
     if(remainingTimeByMS <= 0) {

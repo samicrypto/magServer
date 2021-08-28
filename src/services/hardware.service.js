@@ -26,8 +26,7 @@ const getHardware = async(tpid) => {
 
 const paginateHardware = async(options) => {
 
-    const hardwares = await Hardware.find()
-
+    const hardwares = await Hardware.find();
     return hardwares;
 };
 
@@ -41,9 +40,7 @@ const getHardwareBySerialNumber = async(serialNumber) => {
     return hardware;
 };
 
-// const checkHardwareCapacity = async(serialNumber) => {
-//     const hardware = await Hardware.findOne({ serialNumber: serialNumber });
-// };
+
 
 module.exports = {
     createHardware,
