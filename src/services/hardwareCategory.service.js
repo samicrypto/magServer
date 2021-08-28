@@ -71,12 +71,26 @@ const getCategoryBySlug = async(categorySlug) => {
 };
 
 const deleteCategoryBySlug = async(slug) => {
-    const category = await HardwareCategory.findOne({ slug: slug });
-    if(!category) { throw new ApiError(httpStatus.NOT_FOUND, "HardwareCategoryNotFounded")}
-    const deleteCategory = await HardwareCategory.deleteMany({ "$and": [ { category: { $in: [new RegExp('^' + tutorial.category)] } }, { parent: { $in: [new RegExp('^' + tutorial.category)] } }]});
-    return deleteCategory;
+    const category = await HardwareCategory.find({  });
 };  
 
+
+const editCategoryById = async(cid) => {
+    const editCategory = await HardwareCategory.findOne({ _id: cid });
+    const newSlug = "benzzz";
+    const list = await HardwareCategory.find({ category: { $in: [new RegExp(`${editCategory.slug}`)] } });
+    list.forEach(async(doc) => { 
+        const newCategory = doc.category.replace(`${editCategory.slug}`, newSlug)
+        const newParent = doc.parent.replace(`${editCategory.slug}`, newSlug)
+
+        await HardwareCategory.updateOne({ _id: doc._id }, { '$set': {
+            "category": newCategory,
+            "parent": newParent 
+        } }, { "new": true, "upsert": true })
+    })
+    const newList = await HardwareCategory.find({ category: { $in: [new RegExp(`${newSlug}`)] } });
+    return newList;
+};
 
 module.exports = {
     createTypeCategory,
@@ -87,4 +101,5 @@ module.exports = {
     getModelCategory,
     getCategoryBySlug,
     deleteCategoryBySlug,
+    editCategoryById
 };
