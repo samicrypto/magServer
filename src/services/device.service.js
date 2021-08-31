@@ -1,12 +1,18 @@
 const httpStatus = require('http-status');
-const { Device } = require('../models');
+const { Device, HardwareDevice, WarrantyHistory } = require('../models');
 const ApiError = require('../utils/ApiError');
 const hardwareDeviceService = require('./hardwareDevice.service');
 
 
 const createDevice = async(DBody) => {
-    const device = await Device.create(DBody);
-    return device;
+    try {
+        const device = await Device.create(DBody);
+        return device;
+    } catch (error) {
+        if(error.message.indexOf("11000") != -1) {
+            throw new ApiError(httpStatus.BAD_REQUEST, 'ThisDeviceIsAlreadyRegister');
+        }
+    }
 };
 
 const editDevice = async(did, editBody) => {
@@ -24,7 +30,6 @@ const getDevice = async(did) => {
 const paginateDevice = async() => {
 
     const devices = await Device.find()
-
     return devices;
 
 };
@@ -42,8 +47,25 @@ const createDeviceAndSetHardewareSerialNumber = async(deviceBody, hardwareSerial
     return result;
 };
 
-const restDevice = async(deviceID) => {
-    
+const restDevice = async(deviceIDsList) => {
+
+    deviceIDsList.forEach(async(deviceID) => {
+        const restDevice = await Device.deleteMany({ _id:{ '$in': deviceID }  });
+        await HardwareDevice.deleteMany({ deviceID: { '$in': deviceID }});
+        await WarrantyHistory.deleteMany({ deviceID: { '$in': deviceID }});
+    });
+    return restDevice;
+
+};
+
+
+const searchDevice = async(searchText) => {
+    const globalSearch = { '$text': { '$search': searchText } };
+    // const querySearch = 
+    // const devices = await Device.find({'$text': { '$search': searchText } });
+    // const devices = await Device.searchQuery('samsung')
+    // const devices = await Device.fuzzySearch('samsung', { name: 'samsung' })
+    return devices;
 };
 
 module.exports = {
@@ -52,5 +74,7 @@ module.exports = {
     getDevice,
     paginateDevice,
     deleteDevice,
-    createDeviceAndSetHardewareSerialNumber
+    createDeviceAndSetHardewareSerialNumber,
+    restDevice,
+    searchDevice
 };

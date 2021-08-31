@@ -224,4 +224,12 @@ router
   .route('/cdash/:hsn')
     .post(deviceController.createDeviceAndSetHardewareSerialNumber)
 
+router
+  .route('/reset')
+    .delete(deviceController.restDevice);
+
+router
+  .route('/search')
+    .post(deviceController.searchDevice)
+
 module.exports = router;

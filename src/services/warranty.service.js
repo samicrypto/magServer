@@ -13,7 +13,7 @@ const createWarranty = async(WBody) => {
     warranty = await Warranty.create({
         title: WBody.title,
         hardwareID: WBody.hardwareID,
-        WarrantyCategoryID: hardware.warrantyCategoryID,
+        warrantyCategoryID: hardware.warrantyCategoryID,
         startDate: WBody.startDate,
         expireDate: WBody.expireDate
     });

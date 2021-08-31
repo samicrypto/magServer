@@ -54,11 +54,28 @@ const createDeviceAndSetHardewareSerialNumber = catchAsync(async(req, res) => {
     res.status(httpStatus.OK).send(result);
 });
 
+const restDevice = catchAsync(async(req, res) => {
+    const deviceIDsList = req.body.deviceIDsList;
+    console.log(deviceIDsList);
+    await deviceService.restDevice(deviceIDsList);
+    const result = await ApiSuccess('DeviceIsDelete', httpStatus.OK);
+    res.status(httpStatus.OK).send(result);
+});
+
+const searchDevice = catchAsync(async(req, res) => {
+    const searchText = req.body.searchText;
+    const devices = await deviceService.searchDevice(searchText);
+    res.status(httpStatus.OK).send(devices);
+});
+
+
 module.exports = { 
     createDevice,
     editDevice,
     getDevice,
     paginateDevice,
     deleteDevice,
-    createDeviceAndSetHardewareSerialNumber
+    createDeviceAndSetHardewareSerialNumber,
+    restDevice,
+    searchDevice
 };

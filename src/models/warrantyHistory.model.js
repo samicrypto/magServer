@@ -8,6 +8,11 @@ const warrantyHistorySchema = mongoose.Schema(
       ref: 'Warranty',
       required: true
     },
+    deviceID: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref:"Device",
+      required:true
+    },
     title: {
       type: String,
       required: true

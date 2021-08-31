@@ -1,23 +1,27 @@
 const mongoose = require('mongoose');
+const searchQuery = require("@cme-pro/mongoose-search");
 const { toJSON, paginate } = require('./plugins');
+const mongoose_fuzzy_searching = require('mongoose-fuzzy-searching');
 
-const deviceSchema = mongoose.Schema(
+const deviceSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: true
+      required: true,
+      searchable: true
     },
     imei: {
       type: String,
       unique: true,
-      required: true
+      required: true,
+      searchable: true
     },
     androidVersion: {
       type: String,
       required: true
     },
     regDate: {
-      type: Date,
+      type: String,
       required: true
     }
   },
@@ -29,6 +33,10 @@ const deviceSchema = mongoose.Schema(
 // add plugin that converts mongoose to json
 deviceSchema.plugin(toJSON);
 deviceSchema.plugin(paginate);
+// deviceSchema.plugin(searchQuery);
+deviceSchema.plugin(mongoose_fuzzy_searching, { fields: [] })
+
+deviceSchema.index({ name: "text", imei:"text" });
 
 /**
  * @typedef Hardware

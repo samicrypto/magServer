@@ -6,7 +6,7 @@ const createDevice = {
     name: Joi.string().required(),
     imei: Joi.string().required(),
     androidVersion: Joi.string().required(),
-    regDate: Joi.date().required(),
+    regDate: Joi.string().required(),
   }),
 };
 
@@ -31,7 +31,7 @@ const editDevice = {
       name: Joi.string(),
       imei: Joi.string(),
       androidVersion: Joi.string(),
-      regDate: Joi.date(),
+      regDate: Joi.string(),
       hardwareSerialNamber: Joi.string()
     }),
 };

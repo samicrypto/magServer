@@ -7,6 +7,7 @@ const warrantyUsage = {
   }),
   body: Joi.object().keys({
     title: Joi.string().required(),
+    deviceID: Joi.string().required(),
     description: Joi.string().required(),
     warrantyUsageDate: Joi.string(),
     deliveryDate: Joi.string().required(),

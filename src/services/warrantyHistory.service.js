@@ -8,6 +8,7 @@ const warrantyUsage = async(WHBody, warrantyID) => {
     const warrantyHistory = await WarrantyHistory.create({
         warrantyID: warrantyID,
         title: WHBody.title,
+        deviceID: WHBody.deviceID,
         description: WHBody.description,
         warrantyUsageDate: WHBody.warrantyUsageDate,
         deliveryDate: WHBody.deliveryDate,
