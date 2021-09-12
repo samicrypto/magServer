@@ -1,4 +1,5 @@
 const express = require('express');
+const { hardwareService, hardwareDeviceService } = require('../services');
 
 const docsRoute = require('./docs.route');
 const databaseToolsRoute = require('./databaseTools.route');
@@ -28,6 +29,7 @@ router.use('/wh', warrantyHistoryRoute);
 router.use('/dealer', dealerRoute);
 router.use('/firebase', firebaseRoute);
 router.use('/scanfile/', scanFileRoute);
+
 
 
 module.exports = router;
