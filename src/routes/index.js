@@ -9,6 +9,7 @@ const HardwareCategoryRoute = require('./hardwareCategory.route');
 const warrantyRoute = require('./warranty.route');
 const warrantyCategoryRoute = require('./warrantyCategory.route');
 const warrantyHistoryRoute = require('./warrantyHistory.route');
+const dealerRoute = require('./dealer.route');
 
 
 const router = express.Router();
@@ -23,6 +24,7 @@ router.use('/hc', HardwareCategoryRoute);
 router.use('/warranty', warrantyRoute);
 router.use('/wc', warrantyCategoryRoute);
 router.use('/wh', warrantyHistoryRoute);
+router.use('/dealer', dealerRoute);
 
 
 module.exports = router;

@@ -5,3 +5,4 @@ module.exports.hardwareCategoryController = require('./hardwareCategory.controll
 module.exports.hardwareDeviceController = require('./hardwareDevice.controller');
 module.exports.warrantyController = require('./warranty.controller');
 module.exports.warrantyCategoryController = require('./warrantyCategory.controller');
+module.exports.dealerController = require('./dealer.controller');
