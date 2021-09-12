@@ -7,5 +7,7 @@ module.exports.HardwareDevice = require('./hardwareDevice.model');
 module.exports.HardwareCategory = require('./hardwareCategory.model');
 module.exports.WarrantyHistory = require('./warrantyHistory.model');
 module.exports.Dealer = require('./dealer.model');
+module.exports.ScanFile = require('./scanfile.model');
+
 
 
