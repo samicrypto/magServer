@@ -2,17 +2,59 @@ const httpStatus = require('http-status');
 const { Device, HardwareDevice, WarrantyHistory } = require('../models');
 const ApiError = require('../utils/ApiError');
 const hardwareDeviceService = require('./hardwareDevice.service');
+const logger = require('../config/logger');
 
+
+const { Client } = require('@elastic/elasticsearch');
+const client = new Client({ 
+    node: 'http://localhost:9200',
+
+    auth: {
+        username: 'elastic',
+        password: 'changeme'
+    }
+});
+ 
+// var elasticsearch = require('elasticsearch');
+// var client = new elasticsearch.Client({
+//   host: 'localhost:9200',
+// //   log: 'trace',
+//   apiVersion: '7.2', // use the same version of your Elasticsearch instance
+// });
+
+// // client.ping({
+// //     // ping usually has a 3000ms timeout
+// //     requestTimeout: 1000
+// //   }, function (error) {
+// //     if (error) {
+// //       console.trace('elasticsearch cluster is down!');
+// //     } else {
+// //       logger.info('All is well');
+// //     }
+// //   });
 
 const createDevice = async(DBody) => {
     try {
-        const device = await Device.create(DBody);
+
+        const device = await Device.create(DBody);    
+        await client.index({
+            index: 'device',
+            body:{
+                id: device._id,
+                name: device.name,
+                imei: device.imei
+            }
+        }); 
         return device;
+
     } catch (error) {
         if(error.message.indexOf("11000") != -1) {
             throw new ApiError(httpStatus.BAD_REQUEST, 'ThisDeviceIsAlreadyRegister');
         }
     }
+
+
+
 };
 
 const editDevice = async(did, editBody) => {
@@ -23,6 +65,22 @@ const editDevice = async(did, editBody) => {
 
 const getDevice = async(did) => {
     const device = await Device.findOne({ _id: did });
+    const result = await client.search({
+        index: 'device',
+        body: {
+          query: {
+            match: { name: 'samsung' }
+          }
+        }
+      });
+    let res;
+    const lists = result.body.hits.hits;
+    const ress = lists.forEach((list) => {
+      console.log(list._source);
+    });
+    console.log('Result: ', ress);
+
+
     if(!device) { throw new ApiError( httpStatus.NOT_FOUND, 'DeviceNotFounded') };
     return device;
 };
@@ -67,6 +125,8 @@ const searchDevice = async(searchText) => {
     // const devices = await Device.fuzzySearch('samsung', { name: 'samsung' })
     return devices;
 };
+
+
 
 module.exports = {
     createDevice,

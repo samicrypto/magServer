@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
-const searchQuery = require("@cme-pro/mongoose-search");
 const { toJSON, paginate } = require('./plugins');
-const mongoose_fuzzy_searching = require('mongoose-fuzzy-searching');
 
 const deviceSchema = new mongoose.Schema(
   {
@@ -33,8 +31,6 @@ const deviceSchema = new mongoose.Schema(
 // add plugin that converts mongoose to json
 deviceSchema.plugin(toJSON);
 deviceSchema.plugin(paginate);
-// deviceSchema.plugin(searchQuery);
-deviceSchema.plugin(mongoose_fuzzy_searching, { fields: [] })
 
 deviceSchema.index({ name: "text", imei:"text" });
 
