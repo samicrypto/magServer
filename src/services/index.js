@@ -4,6 +4,7 @@ module.exports.warrantyHistoryService = require('./warrantyHistory.service');
 module.exports.dealerService = require('./dealer.service');
 module.exports.databaseToolsService = require('./databaseTools.service');
 module.exports.warrantyCategoryService = require('./warrantyCategory.service');
+module.exports.firebaseService = require('./firebase.service');
 
 
 
