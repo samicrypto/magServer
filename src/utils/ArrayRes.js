@@ -29,4 +29,5 @@ function arrayRes(array, limit, page, message, statusCode) {
   return result;
 }
 
+
 module.exports = { slsp, arrayRes };

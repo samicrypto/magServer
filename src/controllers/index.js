@@ -9,3 +9,4 @@ module.exports.dealerController = require('./dealer.controller');
 module.exports.firebaseController = require('./firebase.controller');
 module.exports.TPkgController = require('./tutorialpkg.controller');
 module.exports.appfileController = require('./appFile.controller');
+module.exports.TFileController = require('./tutorialFile.controller');
