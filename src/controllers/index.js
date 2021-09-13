@@ -8,3 +8,4 @@ module.exports.warrantyCategoryController = require('./warrantyCategory.controll
 module.exports.dealerController = require('./dealer.controller');
 module.exports.firebaseController = require('./firebase.controller');
 module.exports.TPkgController = require('./tutorialpkg.controller');
+module.exports.appfileController = require('./appFile.controller');

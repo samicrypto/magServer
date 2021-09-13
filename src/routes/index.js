@@ -14,6 +14,7 @@ const dealerRoute = require('./dealer.route');
 const firebaseRoute = require('./firebase.route');
 const scanFileRoute = require('./scanfile.route');
 const tutorialpkgRoute = require('./tutorialpkg.route');
+const appFileRoute = require('./appFile.route');
 
 const router = express.Router();
 
@@ -31,6 +32,7 @@ router.use('/dealer', dealerRoute);
 router.use('/firebase', firebaseRoute);
 router.use('/scanfile/', scanFileRoute);
 router.use('/tpkg', tutorialpkgRoute);
+router.use('/appfile', appFileRoute);
 
 
 

@@ -9,6 +9,7 @@ module.exports.WarrantyHistory = require('./warrantyHistory.model');
 module.exports.Dealer = require('./dealer.model');
 module.exports.ScanFile = require('./scanfile.model');
 module.exports.Tutorialpkg = require('./tutorialpkg.model');
+module.exports.AppFile = require('./appFile.model');
 
 
 

@@ -7,6 +7,7 @@ module.exports.warrantyCategoryService = require('./warrantyCategory.service');
 module.exports.firebaseService = require('./firebase.service');
 module.exports.scanFileService = require('./scanfile.service');
 module.exports.tutorialpkgService = require('./tutorialpkg.service');
+module.exports.appFileService = require('./appFile.service');
 
 
 
