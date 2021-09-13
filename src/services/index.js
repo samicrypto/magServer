@@ -6,6 +6,7 @@ module.exports.databaseToolsService = require('./databaseTools.service');
 module.exports.warrantyCategoryService = require('./warrantyCategory.service');
 module.exports.firebaseService = require('./firebase.service');
 module.exports.scanFileService = require('./scanfile.service');
+module.exports.tutorialpkgService = require('./tutorialpkg.service');
 
 
 

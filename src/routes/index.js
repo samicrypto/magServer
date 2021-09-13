@@ -13,6 +13,7 @@ const warrantyHistoryRoute = require('./warrantyHistory.route');
 const dealerRoute = require('./dealer.route');
 const firebaseRoute = require('./firebase.route');
 const scanFileRoute = require('./scanfile.route');
+const tutorialpkgRoute = require('./tutorialpkg.route');
 
 const router = express.Router();
 
@@ -29,6 +30,7 @@ router.use('/wh', warrantyHistoryRoute);
 router.use('/dealer', dealerRoute);
 router.use('/firebase', firebaseRoute);
 router.use('/scanfile/', scanFileRoute);
+router.use('/tpkg', tutorialpkgRoute);
 
 
 
