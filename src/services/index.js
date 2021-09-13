@@ -11,10 +11,6 @@ module.exports.scanFileService = require('./scanfile.service');
 module.exports.tutorialpkgService = require('./tutorialpkg.service');
 module.exports.appFileService = require('./appFile.service');
 module.exports.tutorialFileService = require('./tutorialFile.service');
-
-
-
-module.exports.tokenService = require('./token.service');
 module.exports.deviceService = require('./device.service');
 module.exports.hardwareService = require('./hardware.service.js');
 module.exports.hardwareDeviceService = require('./hardwareDevice.service');
