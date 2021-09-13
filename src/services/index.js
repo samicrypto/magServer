@@ -1,4 +1,6 @@
 module.exports.tokenService = require('./token.service');
+module.exports.userService = require('./user.service');
+module.exports.authService = require('./auth.service');
 module.exports.warrantyService = require('./warranty.service');
 module.exports.warrantyHistoryService = require('./warrantyHistory.service');
 module.exports.dealerService = require('./dealer.service');

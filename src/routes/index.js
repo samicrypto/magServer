@@ -1,7 +1,8 @@
 const express = require('express');
-const { hardwareService, hardwareDeviceService } = require('../services');
 
 const docsRoute = require('./docs.route');
+const userRoute = require('./user.route');
+const authRoute = require('./auth.route');
 const databaseToolsRoute = require('./databaseTools.route');
 const hardwareRoute = require('./hardware.route');
 const deviceRoute = require('./device.route');
@@ -19,8 +20,9 @@ const tutorialFileRoute = require('./tutorialFile.route');
 
 const router = express.Router();
 
-
 router.use('/docs', docsRoute);
+router.use('/users', userRoute);
+router.use('/auth', authRoute);
 router.use('/dbt', databaseToolsRoute);
 router.use('/hardware', hardwareRoute);
 router.use('/device', deviceRoute);

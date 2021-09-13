@@ -1,3 +1,5 @@
+module.exports.authController = require('./auth.controller');
+module.exports.userController = require('./user.controller');
 module.exports.DBTController = require('./databaseTools.controller');
 module.exports.hardwareController = require('./hardware.controller');
 module.exports.deviceController = require('./device.controller');
@@ -10,3 +12,4 @@ module.exports.firebaseController = require('./firebase.controller');
 module.exports.TPkgController = require('./tutorialpkg.controller');
 module.exports.appfileController = require('./appFile.controller');
 module.exports.TFileController = require('./tutorialFile.controller');
+

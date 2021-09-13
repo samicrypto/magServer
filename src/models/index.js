@@ -1,4 +1,5 @@
 module.exports.Token = require('./token.model');
+module.exports.User = require('./user.model');
 module.exports.Warranty = require('./warranty.model');
 module.exports.WarrantyCategory = require('./warrantyCategory.model');
 module.exports.Hardware = require('./hardware.model');
